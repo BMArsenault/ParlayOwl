@@ -36,10 +36,10 @@ const SearchGames = () => {
 
       const gameData = items.map((game) => ({
         gameId: game.id,
-        authors: game.volumeInfo.authors || ['No author to display'],
-        title: game.volumeInfo.title,
+        SportTitle: game.volumeInfo.SportTitle || ['No title to display'],
         description: game.volumeInfo.description,
-        image: game.volumeInfo.imageLinks?.thumbnail || '',
+        home_team: game.volumeInfo.home_team,
+        away_team: game.volumeInfo.away_team,
       }));
 
       setSearchedGames(gameData);
