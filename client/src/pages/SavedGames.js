@@ -53,7 +53,7 @@ const SavedGames = () => {
           {userData.savedGames.map((game) => {
             return (
               <Card key={game.gameId} border=''>
-                {/* {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null} */}
+                {/* {game.image ? <Card.Img src={game.image} alt={`The cover for ${game.title}`} variant='top' /> : null} */}
                 <Card.Body>
                   <Card.Title>{game.title}</Card.Title>
                   <p className='small'>Home Team: {game.home_team}</p>
