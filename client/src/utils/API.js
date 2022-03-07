@@ -31,7 +31,7 @@ export const getMe = (token) => {
   };
   
   // save game data for a logged in user
-  export const saveBook = (gameData, token) => {
+  export const saveGame = (gameData, token) => {
     return fetch('/api/users', {
       method: 'PUT',
       headers: {
@@ -42,9 +42,9 @@ export const getMe = (token) => {
     });
   };
   
-  // remove saved book data for a logged in user
+  // remove saved game data for a logged in user
   export const deleteGame = (gameId, token) => {
-    return fetch(`/api/users/games/${gameId}`, {
+    return fetch(`/api/users/sports/${gameId}`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ export const getMe = (token) => {
   
   // make a search to the-odds-api for all sports
   // https://api.the-odds-api.com/v4/sports/?apiKey=process.env.API_KEY
-  export const searchOddsApi = (query) => {
+  export const searchOddsApi = (sport) => {
     const key = process.env.API_KEY
-    return fetch(`https://api.the-odds-api.com/v4/${query}/odds/?apiKey=${key}&regions={us}&markets={h2h,spreads,totals,outrights}`);
+    return fetch(`https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${key}&regions=us&markets=h2h,spreads,totals,outrights`);
   };
