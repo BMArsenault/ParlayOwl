@@ -6,6 +6,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.header,
+.search {
+  background-color: lightskyblue;
+}
+
+.name {
+  color: black;
+  font-size: 40px;
+}
+
+.nav-text {
+  color: black;
+  font-size: 20px;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

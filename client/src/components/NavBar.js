@@ -12,16 +12,16 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
+      <Navbar className="navbar header" expand='lg'>
         <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Parlay Owl
+          <Navbar.Brand as={Link} to='/' className="title">
+            <h1 className="name">Parlay Owl  🦉</h1>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
               <Nav.Link as={Link} to='/'>
-                Search For Games
+                <p className="nav-text">Search For Games</p>
               </Nav.Link>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
@@ -32,7 +32,9 @@ const AppNavbar = () => {
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                <Nav.Link onClick={() => setShowModal(true)}>
+                  <p className="nav-text">Login/Sign Up</p>
+                </Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>
