@@ -21,8 +21,8 @@ const typeDefs = gql`
     type Mutation {
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
-        saveGame(): User
-        removeGame(): User
+        #saveGame(): String
+        #removeGame(): User
     }
     type Auth {
         token: ID!
