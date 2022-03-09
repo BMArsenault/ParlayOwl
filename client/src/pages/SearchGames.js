@@ -132,6 +132,9 @@ const SearchGames = () => {
           })}
         </CardColumns>
       </Container>
+      <div className={"donation-conteiner"}>
+        <a className={"donation-button"} href='/payment'>Donation</a>
+      </div>
     </>
   );
 };
