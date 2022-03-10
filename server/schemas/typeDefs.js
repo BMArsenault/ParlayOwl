@@ -11,9 +11,13 @@ const typeDefs = gql`
         savedGames: [Game]
     }
     
-    type Game {
+    type Business {
         _id: ID
-        gameId: String
+        businessId: String
+        name: String
+        alias: String
+        rating: String
+        url: String
     }
     type Query {
         me: User
@@ -21,8 +25,8 @@ const typeDefs = gql`
     type Mutation {
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
-        saveGame(): User
-        removeGame(): User
+        saveBar(businessId: String!, name: String!, alias: String!, rating: String, url: String): User
+        removeBar(businessId: String!): User
     }
     type Auth {
         token: ID!

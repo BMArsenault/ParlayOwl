@@ -42,14 +42,14 @@ module.exports = {
     const token = signToken(user);
     res.json({ token, user });
   },
-  // save a game to a user's `savedGamess` field by adding it to the set (to prevent duplicates)
+  // save a Bar to a user's `savedBarss` field by adding it to the set (to prevent duplicates)
   // user comes from `req.user` created in the auth middleware function
-  async saveGame({ user, body }, res) {
+  async saveBar({ user, body }, res) {
     console.log(user);
     try {
       const updatedUser = await User.findOneAndUpdate(
         { _id: user._id },
-        { $addToSet: { savedGames: body } },
+        { $addToSet: { savedBars: body } },
         { new: true, runValidators: true }
       );
       return res.json(updatedUser);
@@ -58,11 +58,11 @@ module.exports = {
       return res.status(400).json(err);
     }
   },
-  // remove a game from `savedGames`
-  async deleteGame({ user, params }, res) {
+  // remove a Bar from `savedBars`
+  async deleteBar({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
-      { $pull: { savedGames: { gameId: params.gameId } } },
+      { $pull: { savedBars: { BarId: params.BarId } } },
       { new: true }
     );
     if (!updatedUser) {

@@ -24,34 +24,34 @@ export const ADD_USER = gql`
   }
 `;
 
-export const SAVE_GAME = gql`
-  mutation saveGame($gameId: String!, $SportsTitle: [String], $description: String!, $home_team: String!, $away_team: String) {
-    saveGame(gameId: $gameId, SportsTitle: $SportsTitle, description: $description, home_team: $home_team, away_team: $away_team) {
+export const SAVE_BAR = gql`
+  mutation saveBar($businessId: String!, $name: [String], $alias: String!, $rating: String!, $url: String) {
+    saveBar(businessId: $businessId, name: $name, alias: $alias, rating: $rating, url: $url) {
       _id
       username
-      gameCount
-      savedGames {
-        gameId
-        SportTitle
-        description
-        home_team
-        away_team
+      barCount
+      savedBars {
+        businessId
+        name
+        alias
+        rating
+        url
       }
     }
   }
 `;
 
-export const REMOVE_GAME = gql`
-  mutation removeGame($gameId: String!) {
-    removeGame(gameId: $gameId) {
+export const REMOVE_BAR = gql`
+  mutation removeBar($businessId: String!) {
+    removeBar(businessId: $businessId) {
         _id
-        gameCount
-        savedGames {
-            gameId
-            SportTitle
-            description
-            home_team
-            away_team
+        barCount
+        savedBars {
+          businessId
+          name
+          alias
+          rating
+          url
         }
     }
   }

@@ -30,20 +30,20 @@ export const getMe = (token) => {
   };
   
   // save game data for a logged in user
-  export const saveGame = (gameData, token) => {
+  export const saveBar = (barData, token) => {
     return fetch('/api/users', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(gameData),
+      body: JSON.stringify(barData),
     });
   };
   
   // remove saved game data for a logged in user
-  export const deleteGame = (gameId, token) => {
-    return fetch(`/api/users/sports/${gameId}`, {
+  export const deleteBar = (businessId, token) => {
+    return fetch(`/api/users/businesses/${businessId}`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${token}`,

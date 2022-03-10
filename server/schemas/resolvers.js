@@ -7,7 +7,7 @@ const resolvers = {
       me: async (parent, args, context) => {
         if (context.user) {
           const userData = await User.findOne({ _id: context.user._id })
-          .populate('savegames')
+          .populate('savebars')
     
         return userData;
         }
@@ -40,11 +40,11 @@ const resolvers = {
         return { token, user };
       },
 
-      saveGame: async (parent, args, context) => {
+      saveBar: async (parent, args, context) => {
         if (context.user) {
           const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $push: { savedGames: args }},
+            { $push: { savedBars: args }},
             { new: true }
           );
       
@@ -54,11 +54,11 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
       },
 
-      removeGame: async (parent, { gameId }, context) => {
+      removeBars: async (parent, { barId }, context) => {
         if (context.user) {
           const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { savedGames: { gameId: gameId }}},
+            { $pull: { savedBars: { barId: barId }}},
             { new: true }
           );
       
