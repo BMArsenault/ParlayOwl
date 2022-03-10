@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 
-import { SAVE_GAME } from '../utils/mutations';
-import Auth from '../utils/auth';
-import { searchOddsApi } from '../utils/API';
-import { getSavedGameIds } from '../utils/localStorage';
+import { SAVE_GAME } from "../utils/mutations";
+import Auth from "../utils/auth";
+import { searchOddsApi } from "../utils/API";
+import { getSavedGameIds } from "../utils/localStorage";
 
 const SearchGames = () => {
   // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
 
   // create state to hold saved GameId values
   const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
@@ -29,21 +28,21 @@ const SearchGames = () => {
       const response = await searchOddsApi(searchInput);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const { items } = await response.json();
 
       const gameData = items.map((game) => ({
         gameId: game.id,
-        SportTitle: game.volumeInfo.SportTitle || ['No title to display'],
+        SportTitle: game.volumeInfo.SportTitle || ["No title to display"],
         description: game.volumeInfo.description,
         home_team: game.volumeInfo.home_team,
         away_team: game.volumeInfo.away_team,
       }));
 
       setSearchedGames(gameData);
-      setSearchInput('');
+      setSearchInput("");
     } catch (err) {
       console.error(err);
     }
@@ -63,8 +62,8 @@ const SearchGames = () => {
 
     try {
       await saveGame({
-        variables: gameToSave
-      })
+        variables: gameToSave,
+      });
       // if game successfully saves to user's account, save game id to state
       setSavedGameIds([...savedGameIds, gameToSave.gameId]);
     } catch (err) {
@@ -74,60 +73,60 @@ const SearchGames = () => {
 
   return (
     <>
-      <Jumbotron fluid className='search'>
-        <Container>
+      <section className="search-games">
+        <div>
           <h1>Search for Games!</h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name='searchInput'
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='Search for a game'
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
-                  Submit Search
-                </Button>
-              </Col>
-            </Form.Row>
-          </Form>
-        </Container>
-      </Jumbotron>
+          <select>
+            <option value={null}>Select A Sport!</option>
+            <option value="upcoming">Get Upcoming Games</option>
+            <option value="americanfootball_nfl">NFL</option>
+            <option value="americanfootball_ncaaf">College Football</option>
+            <option value="basketball_nba">NBA</option>
+            <option value="baseball_mlb">MLB</option>
+            <option value="icehockey_nhl">NHL</option>
+            <option value="mma_mixed_martial_arts ">MMA</option>
+          </select>
+        </div>
+      </section>
 
       <Container>
         <h2>
           {searchedGames.length
             ? `Viewing ${searchedGames.length} results:`
-            : 'Please search for a game'}
+            : "Please search for a game"}
         </h2>
         <CardColumns>
           {searchedGames.map((game) => {
             return (
-              <Card key={game.gameId} border='dark'>
+              <section className="card" key={game.gameId} border="dark">
                 {game.image ? (
-                  <Card.Img src={game.image} alt={`The cover for ${game.title}`} variant='top' />
+                  <img
+                    src={game.image}
+                    alt={`The cover for ${game.title}`}
+                    variant="top"
+                  />
                 ) : null}
-                <Card.Body>
-                  <Card.Title>{game.title}</Card.Title>
-                  <p className='small'>Authors: {game.authors}</p>
-                  <Card.Text>{game.description}</Card.Text>
+                <div className="card-body">
+                  <div className="card-title">{game.title}</div>
+                  <p className="small">Authors: {game.authors}</p>
+                  <p>{game.description}</p>
                   {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedGameIds?.some((savedGameId) => savedGameId === game.gameId)}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveGame(game.gameId)}>
-                      {savedGameIds?.some((savedGameId) => savedGameId === game.gameId)
-                        ? 'This game has already been saved!'
-                        : 'Save this Game!'}
-                    </Button>
+                    <button
+                      disabled={savedGameIds?.some(
+                        (savedGameId) => savedGameId === game.gameId
+                      )}
+                      className="btn-block btn-info"
+                      onClick={() => handleSaveGame(game.gameId)}
+                    >
+                      {savedGameIds?.some(
+                        (savedGameId) => savedGameId === game.gameId
+                      )
+                        ? "This game has already been saved!"
+                        : "Save this Game!"}
+                    </button>
                   )}
-                </Card.Body>
-              </Card>
+                </div>
+              </section>
             );
           })}
         </CardColumns>
