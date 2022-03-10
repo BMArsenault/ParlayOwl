@@ -1,31 +1,39 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-
 import { SAVE_GAME } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { searchOddsApi } from "../utils/API";
 import { getSavedGameIds } from "../utils/localStorage";
+// import css
+import "./search-games.css";
 
 const SearchGames = () => {
   // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState("");
+  const [values, setValues] = useState({
+    id: "",
+  });
 
   // create state to hold saved GameId values
   const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
   const [saveGame] = useMutation(SAVE_GAME);
 
   // create method to search for Games and set state on form submit
-  const handleFormSubmit = async (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
-
-    if (!searchInput) {
+    const { id } = event.target;
+    setValues({
+      ...values,
+      id,
+    });
+    console.log(id);
+    if (!id) {
       return false;
     }
 
     try {
-      const response = await searchOddsApi(searchInput);
+      const response = await searchOddsApi(id);
 
       if (!response.ok) {
         throw new Error("something went wrong!");
@@ -42,7 +50,7 @@ const SearchGames = () => {
       }));
 
       setSearchedGames(gameData);
-      setSearchInput("");
+      setValues("");
     } catch (err) {
       console.error(err);
     }
@@ -73,32 +81,45 @@ const SearchGames = () => {
 
   return (
     <>
-      <section className="search-games">
+      <nav className="sports-games-list">
         <div>
           <h1>Search for Games!</h1>
-          <select>
-            <option value={null}>Select A Sport!</option>
-            <option value="upcoming">Get Upcoming Games</option>
-            <option value="americanfootball_nfl">NFL</option>
-            <option value="americanfootball_ncaaf">College Football</option>
-            <option value="basketball_nba">NBA</option>
-            <option value="baseball_mlb">MLB</option>
-            <option value="icehockey_nhl">NHL</option>
-            <option value="mma_mixed_martial_arts ">MMA</option>
-          </select>
+          <ul>
+            <li onClick={handleClick} id="upcoming">
+              Get Upcoming Games
+            </li>
+            <li onClick={handleClick} id="americanfootball_nfl">
+              NFL
+            </li>
+            <li onClick={handleClick} id="americanfootball_ncaaf">
+              College Football
+            </li>
+            <li onClick={handleClick} id="basketball_nba">
+              NBA
+            </li>
+            <li onClick={handleClick} id="baseball_mlb">
+              MLB
+            </li>
+            <li onClick={handleClick} id="icehockey_nhl">
+              NHL
+            </li>
+            <li onClick={handleClick} id="mma_mixed_martial_arts ">
+              MMA
+            </li>
+          </ul>
         </div>
-      </section>
+      </nav>
 
-      <Container>
+      <div>
         <h2>
           {searchedGames.length
             ? `Viewing ${searchedGames.length} results:`
             : "Please search for a game"}
         </h2>
-        <CardColumns>
+        <div>
           {searchedGames.map((game) => {
             return (
-              <section className="card" key={game.gameId} border="dark">
+              <div className="card" key={game.gameId} border="dark">
                 {game.image ? (
                   <img
                     src={game.image}
@@ -126,11 +147,11 @@ const SearchGames = () => {
                     </button>
                   )}
                 </div>
-              </section>
+              </div>
             );
           })}
-        </CardColumns>
-      </Container>
+        </div>
+      </div>
     </>
   );
 };
