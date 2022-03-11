@@ -38,17 +38,18 @@ const SearchGames = () => {
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
-
-      const { items } = await response.json();
-
+      // I had to undeconstruct the items because if not i was getting undefinded
+      const items = await response.json();
+      console.log(items);
       const gameData = items.map((game) => ({
         gameId: game.id,
-        SportTitle: game.volumeInfo.SportTitle || ["No title to display"],
-        description: game.volumeInfo.description,
-        home_team: game.volumeInfo.home_team,
-        away_team: game.volumeInfo.away_team,
+        sport_title: game.sport_title || ["No title to display"],
+        // bookmakers: game.bookmakers,
+        description: game.description,
+        home_team: game.home_team,
+        away_team: game.away_team,
+        // markets: game.outcomes,
       }));
-
       setSearchedGames(gameData);
       setValues("");
     } catch (err) {
@@ -81,37 +82,40 @@ const SearchGames = () => {
 
   return (
     <>
-      <nav className="sports-games-list">
-        <div>
-          <h1>Search for Games!</h1>
-          <ul>
-            <li onClick={handleClick} id="upcoming">
-              Get Upcoming Games
-            </li>
-            <li onClick={handleClick} id="americanfootball_nfl">
-              NFL
-            </li>
-            <li onClick={handleClick} id="americanfootball_ncaaf">
-              College Football
-            </li>
-            <li onClick={handleClick} id="basketball_nba">
-              NBA
-            </li>
-            <li onClick={handleClick} id="baseball_mlb">
-              MLB
-            </li>
-            <li onClick={handleClick} id="icehockey_nhl">
-              NHL
-            </li>
-            <li onClick={handleClick} id="mma_mixed_martial_arts ">
-              MMA
-            </li>
-          </ul>
+      {/* <h1>Search for Games!</h1> */}
+      <div className="dropdown">
+        <button className="dropdown-btn">Choose A Game</button>
+        <div className="dropdown-content">
+          <nav className="sports-games-list-container">
+            <ul className="sports-game-list">
+              <li onClick={handleClick} id="upcoming">
+                Get Upcoming Games
+              </li>
+              <li onClick={handleClick} id="americanfootball_nfl">
+                NFL
+              </li>
+              <li onClick={handleClick} id="americanfootball_ncaaf">
+                College Football
+              </li>
+              <li onClick={handleClick} id="basketball_nba">
+                NBA
+              </li>
+              <li onClick={handleClick} id="baseball_mlb">
+                MLB
+              </li>
+              <li onClick={handleClick} id="icehockey_nhl">
+                NHL
+              </li>
+              <li onClick={handleClick} id="mma_mixed_martial_arts ">
+                MMA
+              </li>
+            </ul>
+          </nav>
         </div>
-      </nav>
+      </div>
 
       <div>
-        <h2>
+        <h2 className="game-text">
           {searchedGames.length
             ? `Viewing ${searchedGames.length} results:`
             : "Please search for a game"}
@@ -123,14 +127,18 @@ const SearchGames = () => {
                 {game.image ? (
                   <img
                     src={game.image}
-                    alt={`The cover for ${game.title}`}
+                    alt={`The cover for ${game.sport_title}`}
                     variant="top"
                   />
                 ) : null}
                 <div className="card-body">
-                  <div className="card-title">{game.title}</div>
-                  <p className="small">Authors: {game.authors}</p>
+                  <div className="card-title">{game.sport_title}</div>
+                  <p className="small">Bookmaker: {game.bookmakers}</p>
                   <p>{game.description}</p>
+                  <p>
+                    Home Team: {game.home_team} VS Away Team: {game.away_team}
+                  </p>
+                  <p>Odds: {game.outcomes}</p>
                   {Auth.loggedIn() && (
                     <button
                       disabled={savedGameIds?.some(
