@@ -1,15 +1,9 @@
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-li {
-  cursor: pointer;
-}
+/* the main div that holds everything */
 .dropdown {
   background-color: lightskyblue;
   position: relative;
 }
+/* the button for the dropdown menu */
 .dropdown-btn {
   display: flex;
   justify-content: flex-start;
@@ -17,13 +11,31 @@ li {
   background: none;
   border: none;
   text-decoration: none;
+  font-size: 1.5rem;
 }
 .dropdown-btn:hover {
-  color: aliceblue;
+  color: rgb(255, 202, 56);
 }
+/* nav div that holds the list */
 .sports-games-list-container {
+  display: flex;
+  flex-direction: row;
 }
-.sports-games-list {
+/* style for the ul */
+.sports-game-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* the li styles */
+.sports-game-list-items {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+  cursor: pointer;
+  transition: color 200ms ease-in-out;
+}
+.sports-game-list-items:hover {
+  color: rgb(201, 147, 47);
 }
 .dropdown-content {
   position: absolute;
@@ -33,14 +45,22 @@ li {
   padding: 0.75rem;
   border-radius: 0.2rem;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
   transform: translateY(-10px);
+  z-index: 0;
 }
 
-.dropdown > .dropdown-btn:focus + .dropdown-content {
+.dropdown.active > .dropdown-btn + .dropdown-content {
   opacity: 1;
   transform: translateY(0px);
+  pointer-events: auto;
+  z-index: 2;
 }
+/* this class is for me pushing the  */
 .game-text {
-  margin-top: 10rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
