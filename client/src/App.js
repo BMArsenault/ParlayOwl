@@ -5,6 +5,8 @@ import { setContext } from '@apollo/client/link/context';
 
 import SearchBars from './pages/SearchBars';
 import SavedBars from './pages/SavedBars';
+import Signup from './components/Signup';
+import Login from './components/Login';
 import Navbar from './components/NavBar';
 
 const httpLink = createHttpLink({

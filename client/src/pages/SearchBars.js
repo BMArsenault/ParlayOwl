@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Jumbotron, Container, Form, Button, Card, CardColumns, } from 'react-bootstrap';
+import { Container, Form, Button, Card, CardColumns, } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 
 import { SAVE_BAR } from '../utils/mutations';
@@ -75,8 +75,8 @@ const SearchBars = () => {
   };
 
   return (
-    <>
-      <Jumbotron fluid className='search'>
+    <main>
+      <div fluid className='search'>
         <div class="container">
           <div className='flex-container'>
             <div className="dropdown">
@@ -129,7 +129,7 @@ const SearchBars = () => {
               
             </div>
           </div>
-      </Jumbotron>
+      </div>
       <Container>
         <h2 className='text-center'>
           {searchedBars.length
@@ -163,7 +163,7 @@ const SearchBars = () => {
           })}
         </CardColumns>
       </Container>
-    </>
+    </main>
   );
 };
 
