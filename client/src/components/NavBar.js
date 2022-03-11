@@ -12,7 +12,7 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar className="navbar header" expand='lg'>
+      <Navbar className="header" expand='lg'>
         <Container fluid>
           <Navbar.Brand as={Link} to='/' className="title">
             <h1 className="name">Parlay Owl  🦉</h1>
@@ -21,15 +21,15 @@ const AppNavbar = () => {
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
               <Nav.Link as={Link} to='/'>
-                <p className="nav-text">Search For Bars</p>
+                <p class="nav-text">Search For Bars</p>
               </Nav.Link>
               {/* if user is logged in show saved bars and logout */}
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link as={Link} to='/saved'>
-                    See Closest Sports Bars
+                    <p class="nav-text">See Favorite Bars</p>
                   </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  <Nav.Link onClick={Auth.logout} className="nav-text">Logout</Nav.Link>
                 </>
               ) : (
                 <Nav.Link onClick={() => setShowModal(true)}>

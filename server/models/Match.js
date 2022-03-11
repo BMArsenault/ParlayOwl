@@ -1,30 +1,33 @@
 const { Schema } = require('mongoose');
 
 // This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedBars` array in User.js
-const barSchema = new Schema({
-  name: {
+const matchSchema = new Schema({
+  sportTitle: {
     type: String,
     required: true,
   },
   // saved bar id from Yelp
-  businessId: {
+  matchId: {
     type: String,
     required: true,
   },
-  image: {
+  time: {
     type: String,
   },
-  url: {
+  homeTeam: {
     type: String,
   },
-  rating: {
+  awayTeam: {
     type: String,
     required: true,
   },
-  alias: {
+  bookmakers: {
     type: String,
     required: true,
-  }
+  } ,
+    markets: {
+    type: Int
+    }
 });
 
-module.exports = barSchema;
+module.exports = matchSchema;

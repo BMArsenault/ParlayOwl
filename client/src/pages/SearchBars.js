@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns, } from 'react-bootstrap';
+import { Jumbotron, Container, Form, Button, Card, CardColumns, } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 
 import { SAVE_BAR } from '../utils/mutations';
@@ -75,8 +75,7 @@ const SearchBars = () => {
   return (
     <>
       <Jumbotron fluid className='search'>
-        <Container>
-          <div class="container">
+        <div class="container">
             <div>
               <div>
                 <h1>Choose a sport</h1>
@@ -85,43 +84,38 @@ const SearchBars = () => {
                 <h1>
                   Betting Odds
                 </h1>
-                <div>
-              {/* <div class="card">
+                {/* <div class="card">
                     <div class="container">
                       <h4><b>{match.description}</b></h4>
                       <div>Architect & Engineer</div>
                       <div></div>
                     </div>
                   </div>   */}
-                </div>
               </div>
-              <div>
-
-              </div>
-            </div>
-          </div>
-          <div><h1>Search for Bars!</h1></div> 
-          <form onSubmit={handleFormSubmit}>
-            <div class="wrap context-box">
-              <div class="search" xs={12} md={3}>
-                <Form.Control
-                  name='searchInput'
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='Please enter city'
-                />
-              </div>
-              <div xs={8} md={2}>
-                <Button type='submit' variant='success' size='lg'>
-                  Submit Search
-                </Button>
-              </div>
-            </div>
-          </form>
-        </Container>
-      </Jumbotron>
+                <div>
+                  <h1>Search for Bars!</h1>
+                </div> 
+                <form onSubmit={handleFormSubmit}>
+                  <div class="wrap context-box">
+                    <div class="search" xs={12} md={3}>
+                      <Form.Control
+                        name='searchInput'
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        type='text'
+                        placeholder='Please enter city'
+                      />
+                    </div>
+                    <div xs={8} md={2}>
+                      <Button type='submit' variant='success' size='lg'>
+                        Submit Search
+                      </Button>
+                    </div>
+                  </div>
+                </form>
+                    </div>
+                  </div>
+              </Jumbotron>
 
       <Container>
         <h2>
