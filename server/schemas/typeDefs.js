@@ -11,7 +11,7 @@ const typeDefs = gql`
         savedGames: [Game]
     }
     
-    type Business {
+    type Bar {
         _id: ID
         businessId: String
         name: String

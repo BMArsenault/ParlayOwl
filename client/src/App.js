@@ -3,8 +3,8 @@ import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@ap
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 
-import SearchGames from './pages/SearchGames';
-import SavedGames from './pages/SavedGames';
+import SearchBars from './pages/SearchBars';
+import SavedBars from './pages/SavedBars';
 import Navbar from './components/NavBar';
 
 const httpLink = createHttpLink({
@@ -34,8 +34,8 @@ function App() {
         <>
           <Navbar />
           <Switch>
-            <Route exact path='/' component={SearchGames} />
-            <Route exact path='/saved' component={SavedGames} />
+            <Route exact path='/' component={SearchBars} />
+            <Route exact path='/saved' component={SavedBars} />
             <Route render={() => <h1 className=''>Wrong page!</h1>} />
           </Switch>
         </>
