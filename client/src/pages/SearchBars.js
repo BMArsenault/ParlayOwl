@@ -37,6 +37,8 @@ const SearchBars = () => {
       const barData = items.map((bar) => ({
         businessId: bar.businessId,
         name: bar.volumeInfo.name || ['No title to display'],
+        description: bar.volumeInfo.description,
+        image: bar.volumeInfo.image,
         alias: bar.volumeInfo.alias,
         rating: bar.volumeInfo.rating,
         url: bar.volumeInfo.url,
@@ -76,49 +78,60 @@ const SearchBars = () => {
     <>
       <Jumbotron fluid className='search'>
         <div class="container">
+          <div className='flex-container'>
+            <div className="dropdown">
+              <label for="sports" className="large-font">Choose a sport for betting odds</label>
+              <br/>
+              <select name="sports" id="sports" className="center">
+                <option value="upcoming">All</option>
+                <option value="americanfootball_nfl">NFL</option>
+                <option value="americanfootball_ncaa">College Football</option>
+                <option value="basketball_nba">NBA</option>
+                <option value="baseball_mlb">MLB</option>
+                <option value="icehockey_nhl">NHL</option>
+                <option value="mma_mixed_martial_arts">MMA</option>
+              </select>
+              <br/>
+              <br/>
+              <hr/>
+              <h1>Search nearby sports bars</h1>
+              <form onSubmit={handleFormSubmit}>
+                <div class="wrap context-box">
+                  <div class="search" xs={12} md={3}>
+                    <Form.Control
+                      name='searchInput'
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      type='text'
+                      placeholder='Please enter city'
+                    />
+                  </div>
+                  <div xs={8} md={2}>
+                    <Button type='submit' variant='success' size='lg'>
+                      Submit Search
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            </div> 
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <div className='container'>
             <div>
-              <div>
-                <h1>Choose a sport</h1>
-              </div>
-              <div>
-                <h1>
-                  Betting Odds
-                </h1>
-                {/* <div class="card">
-                    <div class="container">
-                      <h4><b>{match.description}</b></h4>
-                      <div>Architect & Engineer</div>
-                      <div></div>
-                    </div>
-                  </div>   */}
-              </div>
-                <div>
-                  <h1>Search for Bars!</h1>
-                </div> 
-                <form onSubmit={handleFormSubmit}>
-                  <div class="wrap context-box">
-                    <div class="search" xs={12} md={3}>
-                      <Form.Control
-                        name='searchInput'
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                        type='text'
-                        placeholder='Please enter city'
-                      />
-                    </div>
-                    <div xs={8} md={2}>
-                      <Button type='submit' variant='success' size='lg'>
-                        Submit Search
-                      </Button>
-                    </div>
-                  </div>
-                </form>
-                    </div>
-                  </div>
-              </Jumbotron>
-
+              <h1 className='text-center'>
+                Betting Odds
+              </h1>
+            </div>
+            <div>
+              
+            </div>
+          </div>
+      </Jumbotron>
       <Container>
-        <h2>
+        <h2 className='text-center'>
           {searchedBars.length
             ? `Viewing ${searchedBars.length} results:`
             : 'Please search for a bar'}

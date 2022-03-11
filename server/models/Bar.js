@@ -11,6 +11,9 @@ const barSchema = new Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String
+  },
   image: {
     type: String,
   },

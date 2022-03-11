@@ -11,9 +11,24 @@ body {
   background-color: lightskyblue;
 }
 
+.flex-container {
+  display: flex;
+  background-color: lightskyblue;
+  justify-content: space-evenly;
+}
+
+.large-font{
+  font-size: 40px;
+  font-weight: 600;
+}
 .name {
   color: black;
   font-size: 40px;
+}
+
+.dropdown {
+  text-align: center;
+  align-items: center;
 }
 
 .nav-text {

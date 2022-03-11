@@ -1,6 +1,7 @@
 import React from 'react';
-import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import { Container, CardColumns, Card, Button } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
+import { Link } from 'react-router-dom';
 
 import { GET_ME } from '../utils/queries';
 import { REMOVE_BAR } from '../utils/mutations';
@@ -38,11 +39,11 @@ const SavedBars = () => {
 
   return (
     <>
-      <Jumbotron fluid className=''>
-        <Container>
+      <div className='container'>
+        <div className='jumbotron'>
           <h1>Viewing saved bars!</h1>
-        </Container>
-      </Jumbotron>
+        </div>
+      </div>
       <Container>
         <h2>
           {userData.savedBars.length
@@ -52,14 +53,17 @@ const SavedBars = () => {
         <CardColumns>
           {userData.savedBars.map((bar) => {
             return (
-              <Card key={bar.businessId} border=''>
-                {/* {bar.image ? <Card.Img src={bar.image} alt={`The cover for ${bar.title}`} variant='top' /> : null} */}
+              <Card key={bar.businessId}>
+                {bar.image ? <Card.Img src={bar.image} alt={`The cover for ${bar.name}`} variant='top' /> : null}
                 <Card.Body>
                   <Card.Title>{bar.name}</Card.Title>
-                  <p className='small'>Home Team: {bar.home_team}</p>
+                  <p className='small'>alias: {bar.alias}</p>
                   <br />
-                  <p className='small'>Away Team: {bar.away_team}</p>
+                  <p className='small'>rating: {bar.rating}</p>
                   <Card.Text>{bar.description}</Card.Text>
+                  <Link className='text-light' to={bar.url}>
+                    <p>Website</p>
+                  </Link>
                   <Button className='' onClick={() => handleDeleteBar(bar.businessId)}>
                     Delete this Bar!
                   </Button>
