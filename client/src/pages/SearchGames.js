@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { SAVE_GAME } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -56,7 +56,29 @@ const SearchGames = () => {
       console.error(err);
     }
   };
-
+  // needs to be in use effect or else it will not work properly
+  useEffect(() => {
+    // function for the dropdown animation
+    document.addEventListener("click", (e) => {
+      const isDropDownButton = e.target.matches("[data-dropdown-btn]");
+      // if you click the dropdown button and are in a dropdown menu do nothing
+      if (!isDropDownButton && e.target.closest("[data-dropdown]") != null)
+        return;
+      // if you are in a dropdown menu leave the menu up
+      let currentDropdown;
+      if (isDropDownButton) {
+        currentDropdown = e.target.closest("[data-dropdown]");
+        currentDropdown.classList.toggle("active");
+      }
+      // close any other dropdown if they are open
+      document
+        .querySelectorAll("[data-dropdown].active")
+        .forEach((dropdown) => {
+          if (dropdown === currentDropdown) return;
+          dropdown.classList.remove("active");
+        });
+    });
+  }, []);
   // create function to handle saving a game to our database
   const handleSaveGame = async (gameId) => {
     // find the game in `searchedGames` state by the matching id
@@ -83,30 +105,61 @@ const SearchGames = () => {
   return (
     <>
       {/* <h1>Search for Games!</h1> */}
-      <div className="dropdown">
-        <button className="dropdown-btn">Choose A Game</button>
+      {/* cool trick with html and for javascript you can give data attributes to html tags and select them by that instead of using id or their class */}
+      <div className="dropdown" data-dropdown>
+        <button className="dropdown-btn" data-dropdown-btn>
+          Choose A Game
+        </button>
         <div className="dropdown-content">
           <nav className="sports-games-list-container">
             <ul className="sports-game-list">
-              <li onClick={handleClick} id="upcoming">
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="upcoming"
+              >
                 Get Upcoming Games
               </li>
-              <li onClick={handleClick} id="americanfootball_nfl">
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="americanfootball_nfl"
+              >
                 NFL
               </li>
-              <li onClick={handleClick} id="americanfootball_ncaaf">
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="americanfootball_ncaaf"
+              >
                 College Football
               </li>
-              <li onClick={handleClick} id="basketball_nba">
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="basketball_nba"
+              >
                 NBA
               </li>
-              <li onClick={handleClick} id="baseball_mlb">
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="baseball_mlb"
+              >
                 MLB
               </li>
-              <li onClick={handleClick} id="icehockey_nhl">
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="icehockey_nhl"
+              >
                 NHL
               </li>
-              <li onClick={handleClick} id="mma_mixed_martial_arts ">
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="mma_mixed_martial_arts "
+              >
                 MMA
               </li>
             </ul>
