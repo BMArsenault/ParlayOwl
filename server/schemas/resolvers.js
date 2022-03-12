@@ -40,33 +40,33 @@ const resolvers = {
         return { token, user };
       },
 
-      saveGame: async (parent, args, context) => {
-        if (context.user) {
-          const updatedUser = await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $push: { savedGames: args }},
-            { new: true }
-          );
+      // saveGame: async (parent, args, context) => {
+      //   if (context.user) {
+      //     const updatedUser = await User.findOneAndUpdate(
+      //       { _id: context.user._id },
+      //       { $push: { savedGames: args }},
+      //       { new: true }
+      //     );
       
-          return updatedUser;
-        }
+      //     return updatedUser;
+      //   }
       
-        throw new AuthenticationError('You need to be logged in!');
-      },
+      //   throw new AuthenticationError('You need to be logged in!');
+      // },
 
-      removeGame: async (parent, { gameId }, context) => {
-        if (context.user) {
-          const updatedUser = await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $pull: { savedGames: { gameId: gameId }}},
-            { new: true }
-          );
+      // removeGame: async (parent, { gameId }, context) => {
+      //   if (context.user) {
+      //     const updatedUser = await User.findOneAndUpdate(
+      //       { _id: context.user._id },
+      //       { $pull: { savedGames: { gameId: gameId }}},
+      //       { new: true }
+      //     );
       
-          return updatedUser;
-        }
+      //     return updatedUser;
+      //   }
       
-        throw new AuthenticationError('You need to be logged in!');
-      },
+      //   throw new AuthenticationError('You need to be logged in!');
+      // },
     },
 };
 

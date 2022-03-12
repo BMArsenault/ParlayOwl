@@ -54,6 +54,6 @@ export const getMe = (token) => {
   // make a search to the-odds-api for all sports
   // https://api.the-odds-api.com/v4/sports/?apiKey=process.env.API_KEY
   export const searchOddsApi = (sport) => {
-    const key = process.env.local.API_KEY
+    const key = process.env.API_KEY
     return fetch(`https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${key}&regions=us&markets=h2h,spreads,totals,outrights`);
   };
