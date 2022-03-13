@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
+import { Nav, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 
@@ -12,34 +12,34 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar className="navbar header" expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/' className="title">
-            <h1 className="name">Parlay Owl  🦉</h1>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar'>
-            <Nav className='ml-auto'>
-              <Nav.Link as={Link} to='/'>
-                <p className="nav-text">Search For Games</p>
-              </Nav.Link>
-              {/* if user is logged in show saved books and logout */}
+      <header className="navbar header flex-row align-center" expand='lg'>
+        <div className="container flex-row justify-center align-center" fluid>
+          <Link to='/' className="title">
+            <h1>Parlay Owl  🦉</h1>
+          </Link>
+          <nav aria-controls='navbar' />
+            <div id='navbar'>
+              <div className='ml-auto'>
+              {/* if user is logged in show stripe and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/saved'>
-                    See Your Games
-                  </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  <Link to='/saved'>
+                    Place Bet
+                  </Link>
+                  <Link onClick={Auth.logout}>Logout</Link>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>
-                  <p className="nav-text">Login/Sign Up</p>
-                </Nav.Link>
+                <Link to='/Login'>
+                  <p className="nav-text">Login</p>
+                </Link>
               )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+                <Link to='/Signup'>
+                  <p>Sign up</p>
+                </Link>
+            </div>
+          </div>
+        </div>
+      </header>
       {/* set modal data up */}
       <Modal
         size='lg'

@@ -60,7 +60,7 @@ console.log(gameData);
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for a league'
+                  placeholder='Search'
                 />
               </Col>
               <Col xs={12} md={4}>
@@ -83,12 +83,13 @@ console.log(gameData);
           {searchedGames.map((game) => {
             return (
               <div className="card" key={game.gameId}>
-                <div className="card-header"><h3>{game.title}</h3></div>
-                  <div className="card-container">
+                <div className="owl-card-header"><h3>{game.title}</h3></div>
+                  <div className="owl-card-container">
+                    <p className='small bookmaker'>{game.bookmakers}</p>
                     <p className='small'>Home Team: {game.homeTeam}</p>
+                    <p className='small'>Odds: {game.marketHomeOdds}</p>
                     <p className='small'>Away Team: {game.awayTeam}</p>
-                    <p className='small'>Bookmaker: {game.bookmakers}</p>
-                    <p className='small'>Best Odds: {game.markets}</p>
+                    <p className='small'>Odds: {game.marketAwayOdds}</p>
                     <p className='small'>Game Time: {game.time}</p>
                   </div>
               </div>
