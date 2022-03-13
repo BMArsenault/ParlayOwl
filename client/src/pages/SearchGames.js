@@ -192,14 +192,15 @@ const SearchGames = () => {
                 ) : null}
                 <div className="card-body">
                   <div className="card-title">{game.sport_title}</div>
-                  <p className="small">
-                    Bookmakers: {game.bookmakers[0][0]}, {game.bookmakers[0][1]}
-                  </p>
+                  <p className="small">Bookmakers: {game.bookmakers[0][0]}</p>
                   <p>{game.description}</p>
                   <p>
                     Home Team: {game.home_team} VS Away Team: {game.away_team}
                   </p>
-                  <p key={game}>Odds: {game.markets[0][0]}</p>
+                  <p key={game}>
+                    Odds/Prices: {game.markets[0][0][0][0]},{" "}
+                    {game.markets[0][0][0][1]}
+                  </p>
                   {Auth.loggedIn() && (
                     <button
                       disabled={savedGameIds?.some(
