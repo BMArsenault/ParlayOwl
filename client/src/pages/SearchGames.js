@@ -42,15 +42,21 @@ const SearchGames = () => {
       const items = await response.json();
       console.log(items);
       const gameData = items.map((game) => ({
-        gameId: game.id,
+        id: game.id,
         sport_title: game.sport_title || ["No title to display"],
-        // bookmakers: game.bookmakers,
-        description: game.description,
+        bookmakers: [game.bookmakers.map((bookmakers) => bookmakers.title)],
+        markets: [
+          game.bookmakers.map((bookmakers) =>
+            bookmakers.markets.map((markets) =>
+              markets.outcomes.map((outcomes) => outcomes.price)
+            )
+          ),
+        ],
         home_team: game.home_team,
         away_team: game.away_team,
-        // markets: game.outcomes,
       }));
       setSearchedGames(gameData);
+      console.log(gameData);
       setValues("");
     } catch (err) {
       console.error(err);
@@ -101,7 +107,7 @@ const SearchGames = () => {
       console.error(err);
     }
   };
-
+  // console.log(searchedGames);
   return (
     <>
       {/* <h1>Search for Games!</h1> */}
@@ -186,12 +192,14 @@ const SearchGames = () => {
                 ) : null}
                 <div className="card-body">
                   <div className="card-title">{game.sport_title}</div>
-                  <p className="small">Bookmaker: {game.bookmakers}</p>
+                  <p className="small">
+                    Bookmakers: {game.bookmakers[0][0]}, {game.bookmakers[0][1]}
+                  </p>
                   <p>{game.description}</p>
                   <p>
                     Home Team: {game.home_team} VS Away Team: {game.away_team}
                   </p>
-                  <p>Odds: {game.outcomes}</p>
+                  <p key={game}>Odds: {game.markets[0][0]}</p>
                   {Auth.loggedIn() && (
                     <button
                       disabled={savedGameIds?.some(
