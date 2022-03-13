@@ -6,6 +6,10 @@ import { SAVE_GAME } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { searchOddsApi } from '../utils/API';
 import { getSavedGameIds } from '../utils/localStorage';
+import YelpSearch from '../components/YelpSearch';
+import YelpResults from '../components/YelpResults';
+import YelpSingleResult from '../components/YelpSingleResult';
+
 
 const SearchGames = () => {
   // create state for holding returned google api data
@@ -132,9 +136,14 @@ const SearchGames = () => {
           })}
         </CardColumns>
       </Container>
+      <YelpSearch/>
+      <YelpResults/>
+      <YelpSingleResult/>
     </>
   );
 };
+
+
 
 
 
