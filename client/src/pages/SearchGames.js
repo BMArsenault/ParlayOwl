@@ -136,4 +136,6 @@ const SearchGames = () => {
   );
 };
 
+
+
 export default SearchGames;
