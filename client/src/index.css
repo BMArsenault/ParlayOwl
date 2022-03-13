@@ -1,5 +1,5 @@
 :root {
-  --primary: #497573;
+  --primary: #93DEFF;
   --secondary: #606470;
   --tertiary: #b2c2c1;
   --quatrinary: #cadbda;
@@ -26,46 +26,24 @@ body {
 /* HEADER CSS */
 .header,
 .search {
-  background-color: #93DEFF;
+  background-color: var(--primary);
 }
 
 .nav-text {
-  color: black;
+  color: var(--dark);
   font-size: 20px;
 }
 
 .name {
-  color: black;
+  color: var(--dark);
   font-size: 40px;
 }
 /*card css*/
-.owl-card-main {
-  background-color: #93DEFF;
-}
-
-.owl-card {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  border: 1px #606470 solid;
-}
-
-.owl-card-header {
-  height: 30%;
-  background: #606470;
-  color: white;
-  text-align: center;
-}
-
 .bookmaker {
   font-size: 30px;
   text-align: center;
   font-weight: bold;
-}
-
-.owl-card-container {
-  padding: 2px 16px;
-  background-color: #f7f7f7;
+  color: var(--dark);
 }
 
 code {
@@ -78,8 +56,8 @@ nav {
   justify-content: center;
 }
 
-nav a {
-  padding: 6px 10px;
+nav p {
+  padding: 6px 30px;
   margin: 0 15px;
   transition: all 0.2s;
 }
@@ -104,7 +82,7 @@ nav a:hover {
   margin: 5px 0;
   border-radius: var(--border-radius);
   border: none;
-  color: var(--dark);
+  color: white;
   outline: none;
   background-color: var(--secondary);
   transition: all 0.5s;
@@ -130,9 +108,10 @@ nav a:hover {
 }
 
 .card-header {
-  color: var(--secondary);
+  color: white;
+  text-align: center;
   margin: 0;
-  background-color: var(--dark);
+  background-color: var(--secondary);
   padding: 0.625rem;
   border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
 }

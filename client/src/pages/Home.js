@@ -82,9 +82,9 @@ console.log(gameData);
         <CardColumns>
           {searchedGames.map((game) => {
             return (
-              <div className="card" key={game.gameId}>
-                <div className="owl-card-header"><h3>{game.title}</h3></div>
-                  <div className="owl-card-container">
+              <div className="card center" key={game.gameId}>
+                <div className="card-header"><h3>{game.title}</h3></div>
+                  <div className="card-container">
                     <p className='small bookmaker'>{game.bookmakers}</p>
                     <p className='small'>Home Team: {game.homeTeam}</p>
                     <p className='small'>Odds: {game.marketHomeOdds}</p>
