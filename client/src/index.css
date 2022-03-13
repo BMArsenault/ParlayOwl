@@ -5,20 +5,45 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #93DEFF;
 }
+/* HEADER CSS */
 .header,
 .search {
-  background-color: lightskyblue;
+  background-color: #93DEFF;
+}
+
+.nav-text {
+  color: black;
+  font-size: 20px;
 }
 
 .name {
   color: black;
   font-size: 40px;
 }
+/*card css*/
+.card-main {
+  background-color: #93DEFF;
+}
 
-.nav-text {
-  color: black;
-  font-size: 20px;
+.card {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  border: 1px #606470 solid;
+}
+
+.card-header {
+  height: 30%;
+  background: #606470;
+  color: white;
+  text-align: center;
+}
+
+.card-container {
+  padding: 2px 16px;
+  background-color: #f7f7f7;
 }
 
 code {
