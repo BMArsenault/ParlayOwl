@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
 
-import { SAVE_GAME } from '../utils/mutations';
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 import { searchOddsApi } from '../utils/API';
-import { getSavedGameIds } from '../utils/localStorage';
 
 const SearchGames = () => {
   // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
-
-  // create state to hold saved GameId values
-  const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
-  const [saveGame] = useMutation(SAVE_GAME);
 
   // create method to search for Games and set state on form submit
   const handleFormSubmit = async (event) => {
@@ -37,6 +30,7 @@ const SearchGames = () => {
       const gameData = items.map((game) => ({
         gameId: game.id,
         title: game.sport_title || ['No title to display'],
+        time: game.commence_time,
         homeTeam: game.home_team,
         awayTeam: game.away_team,
         bookmakers: game.bookmakers[0].title,
@@ -45,29 +39,6 @@ const SearchGames = () => {
 
       setSearchedGames(gameData);
       setSearchInput('');
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  // create function to handle saving a game to our database
-  const handleSaveGame = async (gameId) => {
-    // find the game in `searchedGames` state by the matching id
-    const gameToSave = searchedGames.find((game) => game.gameId === gameId);
-
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
-    try {
-      await saveGame({
-        variables: gameToSave
-      })
-      // if game successfully saves to user's account, save game id to state
-      setSavedGameIds([...savedGameIds, gameToSave.gameId]);
     } catch (err) {
       console.error(err);
     }
@@ -110,23 +81,14 @@ const SearchGames = () => {
           {searchedGames.map((game) => {
             return (
               <Card key={game.gameId} border='dark'>
-                {game.image ? (
-                  <Card.Img src={game.image} alt={`The cover for ${game.title}`} variant='top' />
-                ) : null}
                 <Card.Body>
                   <Card.Title>{game.title}</Card.Title>
-                  <p className='small'>Authors: {game.authors}</p>
+                  <p className='small'>Game Time: {game.time}</p>
+                  <p className='small'>Home Team: {game.homeTeam}</p>
+                  <p className='small'>Away Team: {game.awayTeam}</p>
+                  <p className='small'>Bookmaker: {game.bookmakers}</p>
+                  <p className='small'>Best Odds: {game.price}</p>
                   <Card.Text>{game.description}</Card.Text>
-                  {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedGameIds?.some((savedGameId) => savedGameId === game.gameId)}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveGame(game.gameId)}>
-                      {savedGameIds?.some((savedGameId) => savedGameId === game.gameId)
-                        ? 'This game has already been saved!'
-                        : 'Save this Game!'}
-                    </Button>
-                  )}
                 </Card.Body>
               </Card>
             );
