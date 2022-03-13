@@ -7,6 +7,8 @@ import Auth from '../utils/auth';
 import { searchOddsApi } from '../utils/API';
 import { getSavedGameIds } from '../utils/localStorage';
 
+import { FaDollarSign } from 'react-icons/fa';
+
 const SearchGames = () => {
   // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
@@ -133,7 +135,7 @@ const SearchGames = () => {
         </CardColumns>
       </Container>
       <div className={"donation-conteiner"}>
-        <a className={"donation-button"} href='/payment'>Donation</a>
+        <a className={"donation-button"} href='/payment'><FaDollarSign size="40px"/></a>
       </div>
     </>
   );

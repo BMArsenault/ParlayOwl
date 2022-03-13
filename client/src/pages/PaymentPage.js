@@ -196,7 +196,7 @@ const CheckoutForm = () => {
       </fieldset>
       {error && <ErrorMessage>{error.message}</ErrorMessage>}
       <SubmitButton processing={processing} error={error} disabled={!stripe}>
-        Pay $25
+        Donate $25
       </SubmitButton>
     </form>
   );
@@ -212,14 +212,16 @@ const ELEMENTS_OPTIONS = {
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
+const stripePromise = loadStripe("price_1KcxFnEQg2gj8Tmc13iiFoe5");
 
 const PaymentPage = () => {
   return (
-    <div className="AppWrapper">
-      <Elements stripe={stripePromise} options={ELEMENTS_OPTIONS}>
-        <CheckoutForm />
-      </Elements>
+    <div className="AppWhrapConteiner">
+      <div className="AppWrapper">
+        <Elements stripe={stripePromise} options={ELEMENTS_OPTIONS}>
+          <CheckoutForm />
+        </Elements>
+      </div>
     </div>
   );
 };

@@ -7,6 +7,8 @@ import { REMOVE_GAME } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { removeGameId } from '../utils/localStorage';
 
+import { FaDollarSign } from 'react-icons/fa';
+
 const SavedGames = () => {
   const [removeGame] = useMutation(REMOVE_GAME);
   const { loading, data } = useQuery(GET_ME);
@@ -70,7 +72,7 @@ const SavedGames = () => {
         </CardColumns>
       </Container>
       <div className={"donation-conteiner"}>
-        <a className={"donation-button"} href='/payment'>Donation</a>
+        <a className={"donation-button"} href='/payment'><FaDollarSign size="40px"/></a>
       </div>
     </>
   );
