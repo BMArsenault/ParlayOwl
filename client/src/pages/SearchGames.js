@@ -33,10 +33,16 @@ const SearchGames = () => {
         time: game.commence_time,
         homeTeam: game.home_team,
         awayTeam: game.away_team,
+        markets: [
+          game.bookmakers.map((bookmakers) =>
+            bookmakers.markets.map((markets) =>
+              markets.outcomes.map((outcomes) => outcomes.price)
+            )
+          ),
+        ],
         bookmakers: game.bookmakers[0].title,
-        price: game.bookmakers[3].markets[''],
       }));
-
+console.log(gameData);
       setSearchedGames(gameData);
       setSearchInput('');
     } catch (err) {
@@ -86,7 +92,7 @@ const SearchGames = () => {
                     <p className='small'>Home Team: {game.homeTeam}</p>
                     <p className='small'>Away Team: {game.awayTeam}</p>
                     <p className='small'>Bookmaker: {game.bookmakers}</p>
-                    <p className='small'>Best Odds: {game.price}</p>
+                    <p className='small'>Best Odds: {game.markets}</p>
                     <p className='small'>Game Time: {game.time}</p>
                   </div>
               </div>
