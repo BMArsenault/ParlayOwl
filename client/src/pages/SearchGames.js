@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import { Jumbotron, Container, Col, Form, Button, CardColumns } from 'react-bootstrap';
 
 // import Auth from '../utils/auth';
 import { searchOddsApi } from '../utils/API';
@@ -48,7 +48,7 @@ const SearchGames = () => {
     <>
       <Jumbotron fluid className='search'>
         <Container>
-          <h1>Search for Games!</h1>
+          <h1>Search leagues</h1>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
@@ -58,7 +58,7 @@ const SearchGames = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for a game'
+                  placeholder='Search for a league'
                 />
               </Col>
               <Col xs={12} md={4}>
@@ -71,30 +71,29 @@ const SearchGames = () => {
         </Container>
       </Jumbotron>
 
-      <Container>
+      <div className="container card-main jumbotron-fluid">
         <h2>
           {searchedGames.length
             ? `Viewing ${searchedGames.length} results:`
-            : 'Please search for a game'}
+            : 'Please choose a league to view games'}
         </h2>
         <CardColumns>
           {searchedGames.map((game) => {
             return (
-              <Card key={game.gameId} border='dark'>
-                <Card.Body>
-                  <Card.Title>{game.title}</Card.Title>
-                  <p className='small'>Game Time: {game.time}</p>
-                  <p className='small'>Home Team: {game.homeTeam}</p>
-                  <p className='small'>Away Team: {game.awayTeam}</p>
-                  <p className='small'>Bookmaker: {game.bookmakers}</p>
-                  <p className='small'>Best Odds: {game.price}</p>
-                  <Card.Text>{game.description}</Card.Text>
-                </Card.Body>
-              </Card>
+              <div className="card" key={game.gameId}>
+                <div className="card-header"><h3>{game.title}</h3></div>
+                  <div className="card-container">
+                    <p className='small'>Home Team: {game.homeTeam}</p>
+                    <p className='small'>Away Team: {game.awayTeam}</p>
+                    <p className='small'>Bookmaker: {game.bookmakers}</p>
+                    <p className='small'>Best Odds: {game.price}</p>
+                    <p className='small'>Game Time: {game.time}</p>
+                  </div>
+              </div>
             );
           })}
         </CardColumns>
-      </Container>
+      </div>
     </>
   );
 };
