@@ -33,15 +33,11 @@ const SearchGames = () => {
         time: game.commence_time,
         homeTeam: game.home_team,
         awayTeam: game.away_team,
-        markets: [
-          game.bookmakers.map((bookmakers) =>
-            bookmakers.markets.map((markets) =>
-              markets.outcomes.map((outcomes) => outcomes.price)
-            )
-          ),
-        ],
         bookmakers: game.bookmakers[0].title,
+        marketAwayOdds: game.bookmakers[0].markets[0].outcomes[0].price,
+        marketHomeOdds: game.bookmakers[0].markets[0].outcomes[1].price,
       }));
+
 console.log(gameData);
       setSearchedGames(gameData);
       setSearchInput('');
