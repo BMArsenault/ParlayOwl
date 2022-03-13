@@ -32,14 +32,15 @@ const SearchGames = () => {
         throw new Error('something went wrong!');
       }
 
-      const { items } = await response.json();
+      const items = await response.json();
 
       const gameData = items.map((game) => ({
         gameId: game.id,
-        SportTitle: game.volumeInfo.SportTitle || ['No title to display'],
-        description: game.volumeInfo.description,
-        home_team: game.volumeInfo.home_team,
-        away_team: game.volumeInfo.away_team,
+        title: game.sport_title || ['No title to display'],
+        homeTeam: game.home_team,
+        awayTeam: game.away_team,
+        bookmakers: game.bookmakers[0].title,
+        price: game.bookmakers[3].markets[''],
       }));
 
       setSearchedGames(gameData);
