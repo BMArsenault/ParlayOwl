@@ -56,3 +56,13 @@ export const getMe = (token) => {
   export const searchOddsApi = (sport) => {
     return fetch(`https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=bd1d99e24f3dbaf4f1d8a259ff04b5e5&regions=us&markets=h2h`);
   };
+
+   //YELP API configuration
+  export const yelpApi = (term, location) => {
+    const key = process.env.YELP_API_KEY
+    return fetch(`https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}` , {
+      headers: {
+        Authorization: `Bearer ${key}`,
+      }
+    });
+  };

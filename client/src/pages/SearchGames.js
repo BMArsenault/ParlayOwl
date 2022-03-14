@@ -3,6 +3,7 @@ import { Jumbotron, Container, Col, Form, Button, CardColumns } from 'react-boot
 
 // import Auth from '../utils/auth';
 import { searchOddsApi } from '../utils/API';
+import { yelpApi } from '../utils/API';
 
 const SearchGames = () => {
   // create state for holding returned google api data
@@ -19,7 +20,7 @@ const SearchGames = () => {
     }
 
     try {
-      const response = await searchOddsApi(searchInput);
+      const response = await yelpApi(searchLocation);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -43,6 +44,46 @@ const SearchGames = () => {
       console.error(err);
     }
   };
+
+  const YelpSearch = () => {
+    // create state for holding returned google api data
+    const [searchedYelp, setSearchedYelp] = useState([]);
+    // create state for holding our search field data
+    const [searchLocation, setSearchLocation] = useState('');
+  
+    // create method to search for Games and set state on form submit
+    const submitForm = async (event) => {
+      event.preventDefault();
+  
+      if (!searchLocation) {
+        return false;
+      }
+  
+      try {
+        const response = await searchOddsApi(searchInput);
+  
+        if (!response.ok) {
+          throw new Error('something went wrong!');
+        }
+  
+        const contents = await response.json();
+  
+        const barData = contents.map((bar) => ({
+          gameId: game.id,
+          title: game.sport_title || ['No title to display'],
+          time: game.commence_time,
+          homeTeam: game.home_team,
+          awayTeam: game.away_team,
+          bookmakers: game.bookmakers[0].title,
+          price: game.bookmakers[3].markets[''],
+        }));
+  
+        setSearchedGames(gameData);
+        setSearchInput('');
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
   return (
     <>
