@@ -8,7 +8,7 @@ import { searchOddsApi } from '../utils/API';
 import { getSavedGameIds } from '../utils/localStorage';
 import YelpSearch from '../components/YelpSearch';
 import YelpResults from '../components/YelpResults';
-import YelpSingleResult from '../components/YelpSingleResult';
+
 
 
 const SearchGames = () => {
@@ -138,7 +138,6 @@ const SearchGames = () => {
       </Container>
       <YelpSearch/>
       <YelpResults/>
-      <YelpSingleResult/>
     </>
   );
 };
