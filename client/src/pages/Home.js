@@ -34,9 +34,11 @@ const SearchGames = () => {
         homeTeam: game.home_team,
         awayTeam: game.away_team,
         bookmakers: game.bookmakers[0].title,
-        price: game.bookmakers[3].markets[''],
+        marketAwayOdds: game.bookmakers[0].markets[0].outcomes[0].price,
+        marketHomeOdds: game.bookmakers[0].markets[0].outcomes[1].price,
       }));
 
+console.log(gameData);
       setSearchedGames(gameData);
       setSearchInput('');
     } catch (err) {
@@ -58,7 +60,7 @@ const SearchGames = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for a league'
+                  placeholder='Search'
                 />
               </Col>
               <Col xs={12} md={4}>
@@ -80,13 +82,14 @@ const SearchGames = () => {
         <CardColumns>
           {searchedGames.map((game) => {
             return (
-              <div className="card" key={game.gameId}>
+              <div className="card center" key={game.gameId}>
                 <div className="card-header"><h3>{game.title}</h3></div>
                   <div className="card-container">
+                    <p className='small bookmaker'>{game.bookmakers}</p>
                     <p className='small'>Home Team: {game.homeTeam}</p>
+                    <p className='small'>Odds: {game.marketHomeOdds}</p>
                     <p className='small'>Away Team: {game.awayTeam}</p>
-                    <p className='small'>Bookmaker: {game.bookmakers}</p>
-                    <p className='small'>Best Odds: {game.price}</p>
+                    <p className='small'>Odds: {game.marketAwayOdds}</p>
                     <p className='small'>Game Time: {game.time}</p>
                   </div>
               </div>
