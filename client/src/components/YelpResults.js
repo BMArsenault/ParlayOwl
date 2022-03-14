@@ -2,6 +2,7 @@ import React from 'react';
 import YelpSingleResult from './YelpSingleResult';
 
 const YelpResults = () => {
+
     return (
         <div> 
             <YelpSingleResult/>

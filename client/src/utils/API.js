@@ -59,14 +59,12 @@ export const getMe = (token) => {
   };
 
   //YELP API configuration
-  export const yelpApi = (term, location) => {
-    const key = process.env.YELP_API_KEY
-    return fetch(`https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}` , {
+  export const get = (searchYelp, searchLocation) => {
+    return fetch(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${searchYelp}&location=${searchLocation}` , {
       headers: {
-        Authorization: `Bearer ${key}`,
-      }
+        authorization: `Bearer utKRZpP2d81vSbspms41oMG3hTVQSDc5lmeMKFdVllTskS-tcFZ8xh_n0XYs38-IHEp7kvte9C5P9LszLHG-k-xNJ86U1CxCwSTwDW5F2q4WRq7-eeLxuYc-akwpYnYx`,
+       }
     });
-
   }
 
    
