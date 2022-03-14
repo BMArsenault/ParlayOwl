@@ -8,8 +8,6 @@ const YelpSearch = () => {
     const submitForm = async(event) => {
         console.log(searchYelp,searchLocation)
         event.preventDefault();
-
-        
     }
 
 
