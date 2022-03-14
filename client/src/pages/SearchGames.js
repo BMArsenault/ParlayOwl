@@ -42,18 +42,14 @@ const SearchGames = () => {
       const items = await response.json();
       console.log(items);
       const gameData = items.map((game) => ({
-        id: game.id,
-        sport_title: game.sport_title || ["No title to display"],
-        bookmakers: [game.bookmakers.map((bookmakers) => bookmakers.title)],
-        markets: [
-          game.bookmakers.map((bookmakers) =>
-            bookmakers.markets.map((markets) =>
-              markets.outcomes.map((outcomes) => outcomes.price)
-            )
-          ),
-        ],
-        home_team: game.home_team,
-        away_team: game.away_team,
+        gameId: game.id,
+        title: game.sport_title || ["No title to display"],
+        time: game.commence_time,
+        homeTeam: game.home_team,
+        awayTeam: game.away_team,
+        bookmakers: game.bookmakers[0].title,
+        marketAwayOdds: game.bookmakers[0].markets[0].outcomes[0].price,
+        marketHomeOdds: game.bookmakers[0].markets[0].outcomes[1].price,
       }));
       setSearchedGames(gameData);
       console.log(gameData);
