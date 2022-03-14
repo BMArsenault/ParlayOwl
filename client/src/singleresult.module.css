@@ -1,6 +1,7 @@
 .searchresult {
     display: flex;
     margin-top: 1rem;
+    margin-left: 1rem 
   }
   
 .searchresultimg {
@@ -8,4 +9,8 @@
   width: 105px;
   border-radius: 4px;
   margin-right: 1rem
+}
+
+.businessdetails {
+  min-width: 250px;
 }

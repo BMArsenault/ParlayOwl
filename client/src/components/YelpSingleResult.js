@@ -9,6 +9,7 @@ const YelpSingleResult = () => {
             <div className = {styles.businessdetails}>
                 <h4 className = {styles.businessname}>Business Name</h4>
                 <p>Rating</p>
+                <p>Reviews</p>
                 <p>$$  <span className = "tag">Sports Bar</span> <span className = "tag">Food</span></p>
 
             </div>
