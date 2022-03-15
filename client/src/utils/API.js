@@ -56,3 +56,15 @@ export const getMe = (token) => {
   export const searchOddsApi = (sport) => {
     return fetch(`https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=bd1d99e24f3dbaf4f1d8a259ff04b5e5&regions=us&markets=h2h`);
   };
+
+  //YELP API configuration
+  export const get = (searchYelp, searchLocation) => {
+    return fetch(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${searchYelp}&location=${searchLocation}` , {
+      headers: {
+        authorization: `Bearer utKRZpP2d81vSbspms41oMG3hTVQSDc5lmeMKFdVllTskS-tcFZ8xh_n0XYs38-IHEp7kvte9C5P9LszLHG-k-xNJ86U1CxCwSTwDW5F2q4WRq7-eeLxuYc-akwpYnYx`,
+       }
+    });
+  };
+
+   
+    

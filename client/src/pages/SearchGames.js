@@ -3,6 +3,8 @@ import { Jumbotron, Container, Col, Form, Button, CardColumns } from 'react-boot
 
 // import Auth from '../utils/auth';
 import { searchOddsApi } from '../utils/API';
+import YelpSearch from '../components/YelpSearch';
+import YelpResults from '../components/YelpResults';
 
 import { FaDollarSign } from 'react-icons/fa';
 
@@ -107,5 +109,8 @@ console.log(gameData);
     </>
   );
 };
+
+
+
 
 export default SearchGames;
