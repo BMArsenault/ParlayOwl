@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
+import { Jumbotron, Container, Col, Form, Button, CardColumns } from 'react-bootstrap';
 
-import { SAVE_GAME } from '../utils/mutations';
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 import { searchOddsApi } from '../utils/API';
-import { getSavedGameIds } from '../utils/localStorage';
 
 import { FaDollarSign } from 'react-icons/fa';
 
@@ -14,10 +11,6 @@ const SearchGames = () => {
   const [searchedGames, setSearchedGames] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
-
-  // create state to hold saved GameId values
-  const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
-  const [saveGame] = useMutation(SAVE_GAME);
 
   // create method to search for Games and set state on form submit
   const handleFormSubmit = async (event) => {
@@ -34,41 +27,22 @@ const SearchGames = () => {
         throw new Error('something went wrong!');
       }
 
-      const { items } = await response.json();
+      const items = await response.json();
 
       const gameData = items.map((game) => ({
         gameId: game.id,
-        SportTitle: game.volumeInfo.SportTitle || ['No title to display'],
-        description: game.volumeInfo.description,
-        home_team: game.volumeInfo.home_team,
-        away_team: game.volumeInfo.away_team,
+        title: game.sport_title || ['No title to display'],
+        time: game.commence_time,
+        homeTeam: game.home_team,
+        awayTeam: game.away_team,
+        bookmakers: game.bookmakers[0].title,
+        marketAwayOdds: game.bookmakers[0].markets[0].outcomes[0].price,
+        marketHomeOdds: game.bookmakers[0].markets[0].outcomes[1].price,
       }));
 
+console.log(gameData);
       setSearchedGames(gameData);
       setSearchInput('');
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  // create function to handle saving a game to our database
-  const handleSaveGame = async (gameId) => {
-    // find the game in `searchedGames` state by the matching id
-    const gameToSave = searchedGames.find((game) => game.gameId === gameId);
-
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
-    try {
-      await saveGame({
-        variables: gameToSave
-      })
-      // if game successfully saves to user's account, save game id to state
-      setSavedGameIds([...savedGameIds, gameToSave.gameId]);
     } catch (err) {
       console.error(err);
     }
@@ -78,7 +52,7 @@ const SearchGames = () => {
     <>
       <Jumbotron fluid className='search'>
         <Container>
-          <h1>Search for Games!</h1>
+          <h1>Search leagues</h1>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
@@ -88,7 +62,7 @@ const SearchGames = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for a game'
+                  placeholder='Search'
                 />
               </Col>
               <Col xs={12} md={4}>
@@ -102,37 +76,30 @@ const SearchGames = () => {
       </Jumbotron>
 
       <Container>
-        <h2>
-          {searchedGames.length
-            ? `Viewing ${searchedGames.length} results:`
-            : 'Please search for a game'}
-        </h2>
-        <CardColumns>
-          {searchedGames.map((game) => {
-            return (
-              <Card key={game.gameId} border='dark'>
-                {game.image ? (
-                  <Card.Img src={game.image} alt={`The cover for ${game.title}`} variant='top' />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{game.title}</Card.Title>
-                  <p className='small'>Authors: {game.authors}</p>
-                  <Card.Text>{game.description}</Card.Text>
-                  {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedGameIds?.some((savedGameId) => savedGameId === game.gameId)}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveGame(game.gameId)}>
-                      {savedGameIds?.some((savedGameId) => savedGameId === game.gameId)
-                        ? 'This game has already been saved!'
-                        : 'Save this Game!'}
-                    </Button>
-                  )}
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </CardColumns>
+        <div className="container card-main jumbotron-fluid">
+          <h2>
+            {searchedGames.length
+              ? `Viewing ${searchedGames.length} results:`
+              : 'Please choose a league to view games'}
+          </h2>
+          <CardColumns>
+            {searchedGames.map((game) => {
+              return (
+                <div className="card center" key={game.gameId}>
+                  <div className="card-header"><h3>{game.title}</h3></div>
+                    <div className="card-container">
+                      <p className='small bookmaker'>{game.bookmakers}</p>
+                      <p className='small'>Home Team: {game.homeTeam}</p>
+                      <p className='small'>Odds: {game.marketHomeOdds}</p>
+                      <p className='small'>Away Team: {game.awayTeam}</p>
+                      <p className='small'>Odds: {game.marketAwayOdds}</p>
+                      <p className='small'>Game Time: {game.time}</p>
+                    </div>
+                </div>
+              );
+            })}
+          </CardColumns>
+        </div> 
       </Container>
       <div className={"donation-conteiner"}>
         <a className={"donation-button"} href='/payment'><FaDollarSign size="40px"/></a>
