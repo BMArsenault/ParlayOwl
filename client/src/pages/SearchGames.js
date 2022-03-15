@@ -6,7 +6,7 @@ import { searchOddsApi } from '../utils/API';
 import YelpSearch from '../components/YelpSearch';
 import YelpResults from '../components/YelpResults';
 
-
+import { FaDollarSign } from 'react-icons/fa';
 
 const SearchGames = () => {
   // create state for holding returned google api data
@@ -76,34 +76,36 @@ console.log(gameData);
           </Form>
         </Container>
       </Jumbotron>
-    <Container>
-      <div className="container card-main jumbotron-fluid">
-        <h2>
-          {searchedGames.length
-            ? `Viewing ${searchedGames.length} results:`
-            : 'Please choose a league to view games'}
-        </h2>
-        <CardColumns>
-          {searchedGames.map((game) => {
-            return (
-              <div className="card center" key={game.gameId}>
-                <div className="card-header"><h3>{game.title}</h3></div>
-                  <div className="card-container">
-                    <p className='small bookmaker'>{game.bookmakers}</p>
-                    <p className='small'>Home Team: {game.homeTeam}</p>
-                    <p className='small'>Odds: {game.marketHomeOdds}</p>
-                    <p className='small'>Away Team: {game.awayTeam}</p>
-                    <p className='small'>Odds: {game.marketAwayOdds}</p>
-                    <p className='small'>Game Time: {game.time}</p>
-                  </div>
-              </div>
-            );
-          })}
-        </CardColumns>
-        </div>
+
+      <Container>
+        <div className="container card-main jumbotron-fluid">
+          <h2>
+            {searchedGames.length
+              ? `Viewing ${searchedGames.length} results:`
+              : 'Please choose a league to view games'}
+          </h2>
+          <CardColumns>
+            {searchedGames.map((game) => {
+              return (
+                <div className="card center" key={game.gameId}>
+                  <div className="card-header"><h3>{game.title}</h3></div>
+                    <div className="card-container">
+                      <p className='small bookmaker'>{game.bookmakers}</p>
+                      <p className='small'>Home Team: {game.homeTeam}</p>
+                      <p className='small'>Odds: {game.marketHomeOdds}</p>
+                      <p className='small'>Away Team: {game.awayTeam}</p>
+                      <p className='small'>Odds: {game.marketAwayOdds}</p>
+                      <p className='small'>Game Time: {game.time}</p>
+                    </div>
+                </div>
+              );
+            })}
+          </CardColumns>
+        </div> 
       </Container>
-      <YelpSearch/>
-      <YelpResults/>
+      <div className={"donation-conteiner"}>
+          <a className={"donation-button"} href='/payment'><FaDollarSign size="40px"/></a>
+      </div>
     </>
   );
 };
