@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 // import { useMutation } from "@apollo/client";
-// import Auth from "../utils/auth";
+import Auth from "../utils/auth";
 import { searchOddsApi } from "../utils/API";
 import { CardColumns } from "react-bootstrap";
-// import YelpSearch from "../components/YelpSearch";
-// import YelpResults from "../components/YelpResults";
+import YelpSearch from "../components/YelpSearch";
+import YelpResults from "../components/YelpResults";
 
 import { FaDollarSign } from "react-icons/fa";
 
@@ -90,13 +90,15 @@ const SearchGames = () => {
           <nav className="sports-games-list-container">
             <ul className="sports-game-list">
               <li
+                data-list-item
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="upcoming"
               >
-                Get Upcoming Games
+                All
               </li>
               <li
+                data-list-item
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="americanfootball_nfl"
@@ -104,6 +106,7 @@ const SearchGames = () => {
                 NFL
               </li>
               <li
+                data-list-item
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="americanfootball_ncaaf"
@@ -111,6 +114,7 @@ const SearchGames = () => {
                 College Football
               </li>
               <li
+                data-list-item
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="basketball_nba"
@@ -118,6 +122,7 @@ const SearchGames = () => {
                 NBA
               </li>
               <li
+                data-list-item
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="baseball_mlb"
@@ -125,6 +130,7 @@ const SearchGames = () => {
                 MLB
               </li>
               <li
+                data-list-item
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="icehockey_nhl"
@@ -132,6 +138,7 @@ const SearchGames = () => {
                 NHL
               </li>
               <li
+                data-list-item
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="mma_mixed_martial_arts "
@@ -144,7 +151,7 @@ const SearchGames = () => {
       </div>
       <div>
         <div className="container card-main jumbotron-fluid">
-          <h2>
+          <h2 className="game-text">
             {searchedGames.length
               ? `Viewing ${searchedGames.length} results:`
               : "Please choose a league to view games"}
@@ -170,11 +177,17 @@ const SearchGames = () => {
           </CardColumns>
         </div>
       </div>
-      <div className={"donation-conteiner"}>
-        <a className={"donation-button"} href="/payment">
-          <FaDollarSign size="40px" />
-        </a>
-      </div>
+      {Auth.loggedIn() ? (
+        <>
+          <div className={"donation-conteiner"}>
+            <a className={"donation-button"} href="/payment">
+              <FaDollarSign size="40px" />
+            </a>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

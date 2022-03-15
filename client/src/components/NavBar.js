@@ -8,7 +8,7 @@ const AppNavbar = () => {
       <header className="navbar header flex-row align-center">
         <div className="container flex-row justify-center align-center">
           <Link to="/" className="nav-text">
-            <h1>Parlay Owl 🦉</h1>
+            <h1 className="name">Parlay Owl 🦉</h1>
           </Link>
           <nav aria-controls="navbar" />
           <div id="navbar">
@@ -24,15 +24,17 @@ const AppNavbar = () => {
                   </Link>
                 </>
               ) : (
-                <Link to="/Login">
-                  <p className="nav-text">Login</p>
-                </Link>
+                <>
+                  <Link to="/Login">
+                    <p className="nav-text">Login</p>
+                  </Link>
+                  <div className="ml-auto flex-row ">
+                    <Link to="/Signup">
+                      <p className="nav-text">Sign up</p>
+                    </Link>
+                  </div>
+                </>
               )}
-              <div className="ml-auto flex-row ">
-                <Link to="/Signup">
-                  <p className="nav-text">Sign up</p>
-                </Link>
-              </div>
             </div>
           </div>
         </div>
