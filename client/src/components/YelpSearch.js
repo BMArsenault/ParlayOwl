@@ -6,9 +6,9 @@ import { Jumbotron, Container, Col, Form, Button, CardColumns } from 'react-boot
 
 const YelpSearch = () => {
     // create state for holding returned yelp api data
-    const [searchedBusinesses, setSearchedBusinesses] = useState([])
-    const [searchYelp, setSearchYelp] = useState('') 
-    const [searchLocation, setSearchLocation] = useState('')
+    const [searchedBusinesses, setSearchedBusinesses] = useState([]);
+    const [searchYelp, setSearchYelp] = useState('') ;
+    const [searchLocation, setSearchLocation] = useState('');
     
 
 
@@ -28,8 +28,9 @@ const YelpSearch = () => {
               throw new Error('something went wrong!');
                 }
             
-            const items = await response.json();
+            const { items } = await response.json();
                 console.log(items);
+        
 
             const yelpData = items.map((businesses) => ({
               yelpId: businesses[0].id,
@@ -51,7 +52,6 @@ const YelpSearch = () => {
         }
       
     };
-
 
     return(
         <>
