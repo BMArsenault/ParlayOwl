@@ -1,3 +1,9 @@
+import React, { useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
+// import Auth from "../utils/auth";
+import { searchOddsApi } from "../utils/API";
+// import css
+import "./search-games.css";
 import React, { useState } from 'react';
 import { Jumbotron, Container, Col, Form, Button, CardColumns } from 'react-bootstrap';
 
@@ -12,25 +18,31 @@ const SearchGames = () => {
   // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('');
+  const [values, setValues] = useState({
+    id: "",
+  });
 
   // create method to search for Games and set state on form submit
-  const handleFormSubmit = async (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
-
-    if (!searchInput) {
+    const { id } = event.target;
+    setValues({
+      ...values,
+      id,
+    });
+    console.log(id);
+    if (!id) {
       return false;
     }
 
     try {
-      const response = await searchOddsApi(searchInput);
+      const response = await searchOddsApi(id);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
-
+      // I had to undeconstruct the items because if not i was getting undefinded
       const items = await response.json();
-
       const gameData = items.map((game) => ({
         gameId: game.id,
         title: game.sport_title || ['No title to display'],
@@ -41,41 +53,153 @@ const SearchGames = () => {
         marketAwayOdds: game.bookmakers[0].markets[0].outcomes[0].price,
         marketHomeOdds: game.bookmakers[0].markets[0].outcomes[1].price,
       }));
-
-console.log(gameData);
       setSearchedGames(gameData);
-      setSearchInput('');
+      console.log(gameData);
+      setValues("");
     } catch (err) {
       console.error(err);
     }
   };
+  // needs to be in use effect or else it will not work properly
+  useEffect(() => {
+    // function for the dropdown animation
+    document.addEventListener("click", (e) => {
+      const isDropDownButton = e.target.matches("[data-dropdown-btn]");
+      // if you click the dropdown button and are in a dropdown menu do nothing
+      if (!isDropDownButton && e.target.closest("[data-dropdown]") != null)
+        return;
+      // if you are in a dropdown menu leave the menu up
+      let currentDropdown;
+      if (isDropDownButton) {
+        currentDropdown = e.target.closest("[data-dropdown]");
+        currentDropdown.classList.toggle("active");
+      }
+      // close any other dropdown if they are open
+      document
+        .querySelectorAll("[data-dropdown].active")
+        .forEach((dropdown) => {
+          if (dropdown === currentDropdown) return;
+          dropdown.classList.remove("active");
+        });
+    });
+  }, []);
 
   return (
+
     <>
-      <Jumbotron fluid className='search'>
-        <Container>
-          <h1>Search leagues</h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name='searchInput'
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='Search'
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
-                  Submit Search
-                </Button>
-              </Col>
-            </Form.Row>
-          </Form>
-        </Container>
-      </Jumbotron>
+      {/* <h1>Search for Games!</h1> */}
+      {/* cool trick with html and for javascript you can give data attributes to html tags and select them by that instead of using id or their class */}
+      <div className="dropdown" data-dropdown>
+        <button className="dropdown-btn" data-dropdown-btn>
+          Choose A Game
+        </button>
+        <div className="dropdown-content">
+          <nav className="sports-games-list-container">
+            <ul className="sports-game-list">
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="upcoming"
+                >
+                Get Upcoming Games
+              </li>
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="americanfootball_nfl"
+                >
+                NFL
+              </li>
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="americanfootball_ncaaf"
+                >
+                College Football
+              </li>
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="basketball_nba"
+                >
+                NBA
+              </li>
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="baseball_mlb"
+                >
+                MLB
+              </li>
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="icehockey_nhl"
+                >
+                NHL
+              </li>
+              <li
+                className="sports-game-list-items"
+                onClick={handleClick}
+                id="mma_mixed_martial_arts "
+                >
+                MMA
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="game-text">
+          {searchedGames.length
+            ? `Viewing ${searchedGames.length} results:`
+            : "Please search for a game"}
+        </h2>
+        <div>
+          {searchedGames.map((game) => {
+            return (
+              <div className="card" key={game.gameId} border="dark">
+                {game.image ? (
+                  <img
+                  src={game.image}
+                  alt={`The cover for ${game.sport_title}`}
+                  variant="top"
+                  />
+                  ) : null}
+                <div className="card-body">
+                  <div className="card-title">{game.sport_title}</div>
+                  <p className="small">Bookmakers: {game.bookmakers[0][0]}</p>
+                  <p>{game.description}</p>
+                  <p>
+                    Home Team: {game.home_team} VS Away Team: {game.away_team}
+                  </p>
+                  <p key={game}>
+                    Odds/Prices: {game.markets[0][0][0][0]},{" "}
+                    {game.markets[0][0][0][1]}
+                  </p>
+                  {Auth.loggedIn() && (
+                    <button
+                    disabled={savedGameIds?.some(
+                      (savedGameId) => savedGameId === game.gameId
+                      )}
+                      className="btn-block btn-info"
+                      onClick={() => handleSaveGame(game.gameId)}
+                      >
+                      {savedGameIds?.some(
+                        (savedGameId) => savedGameId === game.gameId
+                        )
+                        ? "This game has already been saved!"
+                        : "Save this Game!"}
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+
 
       <Container>
         <div className="container card-main jumbotron-fluid">
@@ -106,7 +230,9 @@ console.log(gameData);
       <div className={"donation-conteiner"}>
           <a className={"donation-button"} href='/payment'><FaDollarSign size="40px"/></a>
       </div>
+            
     </>
+    
   );
 };
 
