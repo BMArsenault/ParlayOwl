@@ -7,6 +7,7 @@ import SearchGames from './pages/SearchGames';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import Navbar from './components/NavBar';
+import PaymentPage from './pages/PaymentPage';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -37,6 +38,7 @@ function App() {
           <div className="container">
           <Switch>
             <Route exact path='/' component={SearchGames} />
+            <Route path='/payment' component={PaymentPage} />
             <Route exact path='/Login' component={LoginForm} />
             <Route exact path='/Signup' component={SignupForm} />
             <Route render={() => <h1 className=''>Wrong page!</h1>} />
