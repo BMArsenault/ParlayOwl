@@ -1,11 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
-import SignUpForm from "./SignupForm";
-import LoginForm from "./LoginForm";
-import React from "react";
-import { Link } from "react-router-dom";
-
 import Auth from "../utils/auth";
 
 const AppNavbar = () => {
@@ -22,9 +16,11 @@ const AppNavbar = () => {
               {/* if user is logged in show stripe and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Link to="/saved">Place Bet</Link>
+                  <Link to="/payment">
+                    <p className="nav-text">Place Bet </p>
+                  </Link>
                   <Link onClick={Auth.logout}>
-                    <p>Logout</p>
+                    <p className="nav-text">Logout</p>
                   </Link>
                 </>
               ) : (
