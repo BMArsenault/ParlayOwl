@@ -16,7 +16,7 @@ const gameSchema = new Schema({
     type: String,
   },
   price: {
-    type: Int,
+    type: Number,
     required: true,
   },
   bookmakers: [
