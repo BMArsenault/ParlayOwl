@@ -1,3 +1,4 @@
+import "dotenv"
 // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
   return fetch("/api/users/me", {
@@ -52,9 +53,10 @@ export const deleteGame = (gameId, token) => {
 
 // make a search to the-odds-api for all sports
 // https://api.the-odds-api.com/v4/sports/?apiKey=process.env.API_KEY
+// had to change the , to & for the markets if not i get an error
 export const searchOddsApi = (sport) => {
-  const key = process.env.API_KEY;
+  const key = "9aa5b66fc81086bfcc0d0077135cee52";
   return fetch(
-    `https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${key}&regions=us&markets=h2h,spreads,totals,outrights`
+    `https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${key}&regions=us&markets=h2h&spreads&totals&outrights`
   );
 };
