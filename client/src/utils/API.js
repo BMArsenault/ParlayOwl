@@ -1,4 +1,4 @@
-import "dotenv"
+import "dotenv";
 // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
   return fetch("/api/users/me", {
@@ -29,34 +29,22 @@ export const loginUser = (userData) => {
   });
 };
 
-// save game data for a logged in user
-export const saveGame = (gameData, token) => {
-  return fetch("/api/users", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(gameData),
-  });
-};
-
-// remove saved game data for a logged in user
-export const deleteGame = (gameId, token) => {
-  return fetch(`/api/users/sports/${gameId}`, {
-    method: "DELETE",
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-};
-
 // make a search to the-odds-api for all sports
-// https://api.the-odds-api.com/v4/sports/?apiKey=process.env.API_KEY
-// had to change the , to & for the markets if not i get an error
+// https://api.the-odds-api.com/v4/sports/?apiKey=
 export const searchOddsApi = (sport) => {
-  const key = "9aa5b66fc81086bfcc0d0077135cee52";
   return fetch(
-    `https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${key}&regions=us&markets=h2h&spreads&totals&outrights`
+    `https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=bd1d99e24f3dbaf4f1d8a259ff04b5e5&regions=us&markets=h2h`
+  );
+};
+
+//YELP API configuration
+export const get = (searchYelp, searchLocation) => {
+  return fetch(
+    `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${searchYelp}&location=${searchLocation}`,
+    {
+      headers: {
+        authorization: `Bearer utKRZpP2d81vSbspms41oMG3hTVQSDc5lmeMKFdVllTskS-tcFZ8xh_n0XYs38-IHEp7kvte9C5P9LszLHG-k-xNJ86U1CxCwSTwDW5F2q4WRq7-eeLxuYc-akwpYnYx`,
+      },
+    }
   );
 };

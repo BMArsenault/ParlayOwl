@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { SAVE_GAME } from "../utils/mutations";
-import Auth from "../utils/auth";
+// import Auth from "../utils/auth";
 import { searchOddsApi } from "../utils/API";
-import { getSavedGameIds } from "../utils/localStorage";
 // import css
 import "./search-games.css";
+import React, { useState } from 'react';
+import { Jumbotron, Container, Col, Form, Button, CardColumns } from 'react-bootstrap';
+
+// import Auth from '../utils/auth';
+import { searchOddsApi } from '../utils/API';
+import YelpSearch from '../components/YelpSearch';
+import YelpResults from '../components/YelpResults';
+
+import { FaDollarSign } from 'react-icons/fa';
 
 const SearchGames = () => {
   // create state for holding returned google api data
@@ -14,10 +21,6 @@ const SearchGames = () => {
   const [values, setValues] = useState({
     id: "",
   });
-
-  // create state to hold saved GameId values
-  const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
-  const [saveGame] = useMutation(SAVE_GAME);
 
   // create method to search for Games and set state on form submit
   const handleClick = async (event) => {
@@ -40,10 +43,9 @@ const SearchGames = () => {
       }
       // I had to undeconstruct the items because if not i was getting undefinded
       const items = await response.json();
-      console.log(items);
       const gameData = items.map((game) => ({
         gameId: game.id,
-        title: game.sport_title || ["No title to display"],
+        title: game.sport_title || ['No title to display'],
         time: game.commence_time,
         homeTeam: game.home_team,
         awayTeam: game.away_team,
@@ -81,30 +83,9 @@ const SearchGames = () => {
         });
     });
   }, []);
-  // create function to handle saving a game to our database
-  const handleSaveGame = async (gameId) => {
-    // find the game in `searchedGames` state by the matching id
-    const gameToSave = searchedGames.find((game) => game.gameId === gameId);
 
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
-    try {
-      await saveGame({
-        variables: gameToSave,
-      });
-      // if game successfully saves to user's account, save game id to state
-      setSavedGameIds([...savedGameIds, gameToSave.gameId]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  // console.log(searchedGames);
   return (
+
     <>
       {/* <h1>Search for Games!</h1> */}
       {/* cool trick with html and for javascript you can give data attributes to html tags and select them by that instead of using id or their class */}
@@ -119,49 +100,49 @@ const SearchGames = () => {
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="upcoming"
-              >
+                >
                 Get Upcoming Games
               </li>
               <li
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="americanfootball_nfl"
-              >
+                >
                 NFL
               </li>
               <li
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="americanfootball_ncaaf"
-              >
+                >
                 College Football
               </li>
               <li
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="basketball_nba"
-              >
+                >
                 NBA
               </li>
               <li
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="baseball_mlb"
-              >
+                >
                 MLB
               </li>
               <li
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="icehockey_nhl"
-              >
+                >
                 NHL
               </li>
               <li
                 className="sports-game-list-items"
                 onClick={handleClick}
                 id="mma_mixed_martial_arts "
-              >
+                >
                 MMA
               </li>
             </ul>
@@ -181,11 +162,11 @@ const SearchGames = () => {
               <div className="card" key={game.gameId} border="dark">
                 {game.image ? (
                   <img
-                    src={game.image}
-                    alt={`The cover for ${game.sport_title}`}
-                    variant="top"
+                  src={game.image}
+                  alt={`The cover for ${game.sport_title}`}
+                  variant="top"
                   />
-                ) : null}
+                  ) : null}
                 <div className="card-body">
                   <div className="card-title">{game.sport_title}</div>
                   <p className="small">Bookmakers: {game.bookmakers[0][0]}</p>
@@ -199,15 +180,15 @@ const SearchGames = () => {
                   </p>
                   {Auth.loggedIn() && (
                     <button
-                      disabled={savedGameIds?.some(
-                        (savedGameId) => savedGameId === game.gameId
+                    disabled={savedGameIds?.some(
+                      (savedGameId) => savedGameId === game.gameId
                       )}
                       className="btn-block btn-info"
                       onClick={() => handleSaveGame(game.gameId)}
-                    >
+                      >
                       {savedGameIds?.some(
                         (savedGameId) => savedGameId === game.gameId
-                      )
+                        )
                         ? "This game has already been saved!"
                         : "Save this Game!"}
                     </button>
@@ -217,9 +198,45 @@ const SearchGames = () => {
             );
           })}
         </div>
+
+
+
+      <Container>
+        <div className="container card-main jumbotron-fluid">
+          <h2>
+            {searchedGames.length
+              ? `Viewing ${searchedGames.length} results:`
+              : 'Please choose a league to view games'}
+          </h2>
+          <CardColumns>
+            {searchedGames.map((game) => {
+              return (
+                <div className="card center" key={game.gameId}>
+                  <div className="card-header"><h3>{game.title}</h3></div>
+                    <div className="card-container">
+                      <p className='small bookmaker'>{game.bookmakers}</p>
+                      <p className='small'>Home Team: {game.homeTeam}</p>
+                      <p className='small'>Odds: {game.marketHomeOdds}</p>
+                      <p className='small'>Away Team: {game.awayTeam}</p>
+                      <p className='small'>Odds: {game.marketAwayOdds}</p>
+                      <p className='small'>Game Time: {game.time}</p>
+                    </div>
+                </div>
+              );
+            })}
+          </CardColumns>
+        </div> 
+      </Container>
+      <div className={"donation-conteiner"}>
+          <a className={"donation-button"} href='/payment'><FaDollarSign size="40px"/></a>
       </div>
+            
     </>
+    
   );
 };
+
+
+
 
 export default SearchGames;

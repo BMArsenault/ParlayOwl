@@ -6,9 +6,7 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).populate(
-          "savegames"
-        );
+        const userData = await User.findOne({ _id: context.user._id });
 
         return userData;
       }
@@ -21,7 +19,6 @@ const resolvers = {
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
-
       return { token, user };
     },
     login: async (parent, { email, password }) => {
