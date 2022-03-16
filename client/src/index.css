@@ -8,6 +8,10 @@ html {
   box-sizing: border-box;
 }
 :root {
+  --primary: #93deff;
+  --secondary: #606470;
+  --tertiary: #b2c2c1;
+  --quatrinary: #cadbda;
   --primary: #ececec;
   --secondary: #9fd3c7;
   --tertiary: #385170;
@@ -29,6 +33,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #93deff;
   background-color: var(--light);
 }
 /* HEADER CSS */
@@ -64,6 +69,7 @@ code {
 /* css for the dropdown menu */
 /* the main div that holds everything */
 .dropdown {
+  background-color: var(--primary);
   position: relative;
 }
 /* the button for the dropdown menu */
@@ -77,6 +83,7 @@ code {
   font-size: 1.5rem;
 }
 .dropdown-btn:hover {
+  color: var(--secondary);
   color: var(--tertiary);
 }
 /* nav div that holds the list */
@@ -98,11 +105,20 @@ code {
   transition: color 200ms ease-in-out;
 }
 .sports-game-list-items:hover {
+  color: var(--secondary);
   color: var(--quatrinary);
 }
 .dropdown-content {
   position: absolute;
   left: 0;
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 0.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease-in-out, transform 150ms ease-in-out;
+  transform: translateY(-20px);
   width: 15rem;
   padding: 0.75rem;
   border-radius: 0.2rem;
@@ -118,6 +134,7 @@ code {
 
 .dropdown.active > .dropdown-btn + .dropdown-content {
   opacity: 1;
+  transform: translateY(0px);
   transform: translateY(30px);
   pointer-events: auto;
   z-index: 2;
@@ -148,6 +165,9 @@ code {
   background: var(--quatrinary);
   cursor: pointer;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 .donation-button:hover {

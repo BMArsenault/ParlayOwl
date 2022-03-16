@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 // import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { searchOddsApi } from "../utils/API";
 import { CardColumns } from "react-bootstrap";
-import YelpSearch from "../components/YelpSearch";
-import YelpResults from "../components/YelpResults";
 
-import { FaDollarSign } from "react-icons/fa";
-
+// import Auth from '../utils/auth';
+import { searchOddsApi } from '../utils/API';
+import YelpSearch from '../components/YelpSearch';
+import { FaDollarSign } from 'react-icons/fa';
 const SearchGames = () => {
   // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
@@ -188,6 +187,7 @@ const SearchGames = () => {
               );
             })}
           </CardColumns>
+          <YelpSearch/>
         </div>
       </div>
       {Auth.loggedIn() ? (
