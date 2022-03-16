@@ -28,19 +28,20 @@ const YelpSearch = () => {
               throw new Error('something went wrong!');
                 }
             
-            const { items } = await response.json();
-                console.log(items);
+            const data = await response.json();
+                console.log(data);
         
 
-            const yelpData = items.map((businesses) => ({
-              yelpId: businesses[0].id,
-              yelpImg: businesses[0].image_url,
-              yelpName: businesses[0].name,
-              yelpRating: businesses[0].rating,
-              yelpPrice: businesses[0].price,
-              yelpCategory: businesses[0].categories[0].alias,
-              yelpAddress: businesses[0].location.yelpAddress,
-              yelpCity: businesses[0].location.city
+            const yelpData = data.businesses.map((businesses) => ({
+              yelpId: businesses.id,
+              yelpImg: businesses.image_url,
+              yelpName: businesses.name,
+              yelpRating: businesses.rating,
+              yelpPrice: businesses.price,
+              yelpCategory: businesses.categories[0].alias,
+              yelpAddress: businesses.location.address1,
+              yelpCity: businesses.location.city,
+              yelpUrl: businesses.url
             }));
 
             console.log(yelpData);
@@ -79,16 +80,16 @@ const YelpSearch = () => {
         <Container>
             {searchedBusinesses.map((businesses) => {
                 return(
-                    <div key={businesses.yelpId}>
+                <div className= {styles.searchresult} key={businesses.yelpId}>
                     <img className = {styles.searchresultimg} src ={businesses.yelpImg}/>
                         <div className = {styles.businessdetails}>
-                        <h4 className = {styles.businessname}>{businesses.yelpName}</h4>
-                            <p>Rating: {businesses.yelpRating} </p>
-                            <p>{businesses.yelpPrice} <span className = "tag">{businesses.yelpCategory}</span></p>
+                            <a className = {styles.businessname} href={businesses.yelpUrl} target="_blank">{businesses.yelpName}</a>
+                            <p className = {styles.businessrating}>Rating: {businesses.yelpRating} </p>
+                            <p className = {styles.businessprice}>{businesses.yelpPrice} <span className = "tag">{businesses.yelpCategory}</span></p>
                         </div>
-                        <div>
-                            <p>{businesses.yelpAddress} </p>
-                            <p>{businesses.yelpCity} </p>
+                        <div className= {styles.businessdetails}>
+                            <p className= {styles.businessaddress}>{businesses.yelpAddress} </p>
+                            <p className= {styles.businesscity}>{businesses.yelpCity} </p>
                         </div>
                 </div>
                 );
