@@ -17,7 +17,7 @@ const AppNavbar = () => {
               {Auth.loggedIn() ? (
                 <>
                   <Link to="/payment">
-                    <p className="nav-text">Place Bet </p>
+                    <p className="nav-text">Donations </p>
                   </Link>
                   <Link onClick={Auth.logout}>
                     <p className="nav-text">Logout</p>

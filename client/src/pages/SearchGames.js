@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
-// import { useMutation } from "@apollo/client";
+import React, { useState } from "react";
 import Auth from "../utils/auth";
-import { CardColumns } from "react-bootstrap";
-
-// import Auth from '../utils/auth';
-import { searchOddsApi } from '../utils/API';
-import YelpSearch from '../components/YelpSearch';
-import { FaDollarSign } from 'react-icons/fa';
+import { searchOddsApi } from "../utils/API";
+import YelpSearch from "../components/YelpSearch";
+import { FaDollarSign } from "react-icons/fa";
 const SearchGames = () => {
   // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
@@ -53,154 +49,128 @@ const SearchGames = () => {
       console.error(err);
     }
   };
-  // needs to be in use effect or else it will not work properly
-  useEffect(() => {
-    // function for the dropdown animation
-    document.addEventListener("click", (e) => {
-      // for the list item data attribute
-      const listItem = document.querySelectorAll("data-list-item");
-      // dropdown button data attribute
-      const isDropDownButton = e.target.matches("[data-dropdown-btn]");
-      // if you click the dropdown button and are in a dropdown menu do nothing
-      if (!isDropDownButton && e.target.closest("[data-dropdown]") != null)
-        return;
-      // if you are in a dropdown menu leave the menu up
-      let currentDropdown;
-      if (isDropDownButton) {
-        currentDropdown = e.target.closest("[data-dropdown]");
-        currentDropdown.classList.toggle("active");
-      }
-      // close any other dropdown if they are open
-      document
-        .querySelectorAll("[data-dropdown].active")
-        .forEach((dropdown) => {
-          if (dropdown === currentDropdown) return;
-          dropdown.classList.remove("active");
-        });
-      listItem.onClick((list) => {
-        if (list) {
-          document
-            .querySelectorAll("[data-dropdown].active")
-            .forEach((dropdown) => {
-              if (dropdown === currentDropdown)
-                return dropdown.classList.remove("active");
-            });
-        }
-      });
-    });
-  }, []);
-
   return (
     <>
       {/* <h1>Search for Games!</h1> */}
-      {/* cool trick with html and for javascript you can give data attributes to html tags and select them by that instead of using id or their class */}
-      <div className="dropdown" data-dropdown>
-        <button className="dropdown-btn" data-dropdown-btn>
-          Choose A Game
-        </button>
-        <div className="dropdown-content">
-          <nav className="sports-games-list-container">
-            <ul className="sports-game-list">
-              <li
-                data-list-item
-                className="sports-game-list-items"
-                onClick={handleClick}
-                id="upcoming"
-              >
-                All
-              </li>
-              <li
-                data-list-item
-                className="sports-game-list-items"
-                onClick={handleClick}
-                id="americanfootball_nfl"
-              >
-                NFL
-              </li>
-              <li
-                data-list-item
-                className="sports-game-list-items"
-                onClick={handleClick}
-                id="americanfootball_ncaaf"
-              >
-                College Football
-              </li>
-              <li
-                data-list-item
-                className="sports-game-list-items"
-                onClick={handleClick}
-                id="basketball_nba"
-              >
-                NBA
-              </li>
-              <li
-                data-list-item
-                className="sports-game-list-items"
-                onClick={handleClick}
-                id="baseball_mlb"
-              >
-                MLB
-              </li>
-              <li
-                data-list-item
-                className="sports-game-list-items"
-                onClick={handleClick}
-                id="icehockey_nhl"
-              >
-                NHL
-              </li>
-              <li
-                data-list-item
-                className="sports-game-list-items"
-                onClick={handleClick}
-                id="mma_mixed_martial_arts "
-              >
-                MMA
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-      <div>
-        <div className="container card-main jumbotron-fluid">
-          <h2 className="game-text">
-            {searchedGames.length
-              ? `Viewing ${searchedGames.length} results:`
-              : "Please choose a league to view games"}
-          </h2>
-          <CardColumns>
-            {searchedGames.map((game) => {
-              return (
-                <div className="card center" key={game.gameId}>
-                  <div className="card-header">
-                    <h3>{game.title}</h3>
-                  </div>
-                  <div className="card-container">
-                    <p className="small bookmaker">{game.bookmakers}</p>
-                    <p className="small">Home Team: {game.homeTeam}</p>
-                    <p className="small">Odds: {game.marketHomeOdds}</p>
-                    <p className="small">Away Team: {game.awayTeam}</p>
-                    <p className="small">Odds: {game.marketAwayOdds}</p>
-                    <p className="small">Game Time: {game.time}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </CardColumns>
-          <YelpSearch/>
-        </div>
-      </div>
       {Auth.loggedIn() ? (
         <>
-          <div className={"donation-conteiner"}>
+          <div className={"donation-container"}>
             <a className={"donation-button"} href="/payment">
               <FaDollarSign size="40px" />
             </a>
           </div>
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
+      <div className="m-3">
+        <div className="dropdown">
+          <button className="dropdown-btn">Search Leagues</button>
+          <div className="dropdown-content">
+            <nav className="sports-games-list-container">
+              <ul className="sports-game-list">
+                <li
+                  className="sports-game-list-items"
+                  onClick={handleClick}
+                  id="upcoming"
+                >
+                  All
+                </li>
+                <li
+                  className="sports-game-list-items"
+                  onClick={handleClick}
+                  id="americanfootball_nfl"
+                >
+                  NFL
+                </li>
+                <li
+                  className="sports-game-list-items"
+                  onClick={handleClick}
+                  id="americanfootball_ncaaf"
+                >
+                  College Football
+                </li>
+                <li
+                  className="sports-game-list-items"
+                  onClick={handleClick}
+                  id="basketball_nba"
+                >
+                  NBA
+                </li>
+                <li
+                  className="sports-game-list-items"
+                  onClick={handleClick}
+                  id="baseball_mlb"
+                >
+                  MLB
+                </li>
+                <li
+                  className="sports-game-list-items"
+                  onClick={handleClick}
+                  id="icehockey_nhl"
+                >
+                  NHL
+                </li>
+                <li
+                  className="sports-game-list-items"
+                  onClick={handleClick}
+                  id="mma_mixed_martial_arts "
+                >
+                  MMA
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <span className="game-text ml-3">
+          {searchedGames.length
+            ? `Viewing ${searchedGames.length} results:`
+            : "Choose a league to view games"}
+        </span>
+        <div>
+          <div className=" flexbox">
+            <div className="max-width">
+              <div>
+                <div className="card-container">
+                  {searchedGames.map((game) => {
+                    return (
+                      <div className="center" key={game.gameId}>
+                        <h3 className="game-title">
+                          {game.title} <br />{" "}
+                          <span className="bookmaker">{game.bookmakers}</span>
+                        </h3>
+                        {/* <h3 className="small game-title">{game.bookmakers}</h3> */}
+                        <br />
+                        <p>
+                          <span className="small">Home Team: </span>
+                          {game.homeTeam}
+                        </p>
+                        <p>
+                          <span className="small">Odds:</span>
+                          {game.marketHomeOdds}
+                        </p>
+                        <p>
+                          <span className="small">Away Team: </span>
+                          {game.awayTeam}
+                        </p>
+                        <p>
+                          <span className="small">Odds: </span>
+                          {game.marketAwayOdds}
+                        </p>
+                        <p>
+                          <span className="small">Game Time: </span>
+                          {game.time}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className="ml-5 spacing">
+              <YelpSearch />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

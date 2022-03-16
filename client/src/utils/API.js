@@ -38,9 +38,9 @@ export const searchOddsApi = (sport) => {
 };
 
 //YELP API configuration
-export const get = (searchYelp, searchLocation) => {
+export const get = (searchLocation) => {
   return fetch(
-    `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${searchYelp}&location=${searchLocation}`,
+    `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=sportsbars&location=${searchLocation}`,
     {
       headers: {
         authorization: `Bearer utKRZpP2d81vSbspms41oMG3hTVQSDc5lmeMKFdVllTskS-tcFZ8xh_n0XYs38-IHEp7kvte9C5P9LszLHG-k-xNJ86U1CxCwSTwDW5F2q4WRq7-eeLxuYc-akwpYnYx`,
