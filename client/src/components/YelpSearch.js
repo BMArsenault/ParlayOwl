@@ -12,10 +12,9 @@ const YelpSearch = () => {
     
 
 
-    
-    const submitForm = async(event) => {
-        console.log(searchYelp,searchLocation)
-        event.preventDefault();
+  const submitForm = async (event) => {
+    console.log(searchYelp, searchLocation);
+    event.preventDefault();
 
         if (!searchYelp) {
             return false;
@@ -98,5 +97,6 @@ const YelpSearch = () => {
         </>
     );
 }; 
+
 
 export default YelpSearch;

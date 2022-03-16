@@ -1,24 +1,29 @@
-import React from 'react';
-import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { setContext } from '@apollo/client/link/context';
+import React from "react";
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { setContext } from "@apollo/client/link/context";
 
-import SearchGames from './pages/SearchGames';
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
-import Navbar from './components/NavBar';
-import PaymentPage from './pages/PaymentPage';
+import SearchGames from "./pages/SearchGames";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
+import Navbar from "./components/NavBar";
+import PaymentPage from "./pages/PaymentPage";
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: "/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem("id_token");
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -28,7 +33,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -36,13 +40,13 @@ function App() {
         <div className="flex-column justify-flex-start min-100-vh">
           <Navbar />
           <div className="container">
-          <Switch>
-            <Route exact path='/' component={SearchGames} />
-            <Route exact path='/payment' component={PaymentPage} />
-            <Route exact path='/Login' component={LoginForm} />
-            <Route exact path='/Signup' component={SignupForm} />
-            <Route render={() => <h1 className=''>Wrong page!</h1>} />
-          </Switch>
+            <Switch>
+              <Route exact path="/" component={SearchGames} />
+              <Route exact path="/payment" component={PaymentPage} />
+              <Route exact path="/Login" component={LoginForm} />
+              <Route exact path="/Signup" component={SignupForm} />
+              <Route render={() => <h1 className="">Wrong page!</h1>} />
+            </Switch>
           </div>
         </div>
       </Router>
