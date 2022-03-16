@@ -58,6 +58,9 @@ const SearchGames = () => {
   useEffect(() => {
     // function for the dropdown animation
     document.addEventListener("click", (e) => {
+      // for the list item data attribute
+      const listItem = document.querySelectorAll("data-list-item");
+      // dropdown button data attribute
       const isDropDownButton = e.target.matches("[data-dropdown-btn]");
       // if you click the dropdown button and are in a dropdown menu do nothing
       if (!isDropDownButton && e.target.closest("[data-dropdown]") != null)
@@ -75,6 +78,16 @@ const SearchGames = () => {
           if (dropdown === currentDropdown) return;
           dropdown.classList.remove("active");
         });
+      listItem.onClick((list) => {
+        if (list) {
+          document
+            .querySelectorAll("[data-dropdown].active")
+            .forEach((dropdown) => {
+              if (dropdown === currentDropdown)
+                return dropdown.classList.remove("active");
+            });
+        }
+      });
     });
   }, []);
 
