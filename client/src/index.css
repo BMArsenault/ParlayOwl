@@ -37,11 +37,11 @@ body {
   display: inline-flex;
   padding-left: 0px;
   padding-right: 0px;
-  max-width: 1200px;
+  /* max-width: 1200px; */
 }
 /* max width */
 .max-width {
-  width: 70%;
+  width: 35%;
 }
 /* HEADER CSS */
 .header,
@@ -67,6 +67,12 @@ body {
   text-align: center;
   font-weight: bold;
   color: var(--dark);
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  padding-left: 0px;
 }
 
 code {
@@ -134,13 +140,17 @@ code {
 /* css for cards */
 
 .card-container {
-  display: grid;
-  grid-template-columns: 50% 50%;
+  /* display: grid;
+  grid-template-columns: 50% 50%;*/
+  row-gap: 10px;
+  column-gap: 20px;
+  width: 650px;
+  display: flex;
+  flex-flow: row wrap;
   padding-top: 10px;
   padding-left: 0px;
-  row-gap: 1rem;
-  column-gap: 2rem;
-  width: 600px;
+  padding-right: 0px;
+  margin-right: 0px;
 }
 .center {
   background-color: var(--primary);
@@ -166,8 +176,8 @@ code {
 /* for the city search */
 /* for form */
 .yelp-search-form {
-  width: 600px;
-  margin-top: -85px;
+  width: 450px;
+  margin-top: 30px;
 }
 .sports-bars-text {
   text-align: center;
@@ -775,80 +785,6 @@ nav a:hover {
   margin-left: auto;
 }
 
-/* Margin - x axis */
-
-.mx-0 {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.mx-1 {
-  margin-right: var(--spacing-one);
-  margin-left: var(--spacing-one);
-}
-
-.mx-2 {
-  margin-right: var(--spacing-two);
-  margin-left: var(--spacing-two);
-}
-
-.mx-3 {
-  margin-right: var(--spacing-three);
-  margin-left: var(--spacing-three);
-}
-
-.mx-4 {
-  margin-right: var(--spacing-four);
-  margin-left: var(--spacing-four);
-}
-
-.mx-5 {
-  margin-right: var(--spacing-five);
-  margin-left: var(--spacing-five);
-}
-
-.mx-auto {
-  margin-right: auto;
-  margin-left: auto;
-}
-
-/* Margin - y axis */
-
-.my-0 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.my-1 {
-  margin-top: var(--spacing-one);
-  margin-bottom: var(--spacing-one);
-}
-
-.my-2 {
-  margin-top: var(--spacing-two);
-  margin-bottom: var(--spacing-two);
-}
-
-.my-3 {
-  margin-top: var(--spacing-three);
-  margin-bottom: var(--spacing-three);
-}
-
-.my-4 {
-  margin-top: var(--spacing-four);
-  margin-bottom: var(--spacing-four);
-}
-
-.my-5 {
-  margin-top: var(--spacing-five);
-  margin-bottom: var(--spacing-five);
-}
-
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 /* Padding - all sides */
 .p-0 {
   padding: 0;
@@ -998,80 +934,6 @@ nav a:hover {
   padding-left: auto;
 }
 
-/* padding - x axis */
-
-.px-0 {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.px-1 {
-  padding-right: var(--spacing-one);
-  padding-left: var(--spacing-one);
-}
-
-.px-2 {
-  padding-right: var(--spacing-two);
-  padding-left: var(--spacing-two);
-}
-
-.px-3 {
-  padding-right: var(--spacing-three);
-  padding-left: var(--spacing-three);
-}
-
-.px-4 {
-  padding-right: var(--spacing-four);
-  padding-left: var(--spacing-four);
-}
-
-.px-5 {
-  padding-right: var(--spacing-five);
-  padding-left: var(--spacing-five);
-}
-
-.px-auto {
-  padding-right: auto;
-  padding-left: auto;
-}
-
-/* Padding - y axis */
-
-.py-0 {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.py-1 {
-  padding-top: var(--spacing-one);
-  padding-bottom: var(--spacing-one);
-}
-
-.py-2 {
-  padding-top: var(--spacing-two);
-  padding-bottom: var(--spacing-two);
-}
-
-.py-3 {
-  padding-top: var(--spacing-three);
-  padding-bottom: var(--spacing-three);
-}
-
-.py-4 {
-  padding-top: var(--spacing-four);
-  padding-bottom: var(--spacing-four);
-}
-
-.py-5 {
-  padding-top: var(--spacing-five);
-  padding-bottom: var(--spacing-five);
-}
-
-.py-auto {
-  padding-top: auto;
-  padding-bottom: auto;
-}
-
 /* FONT UTILS */
 .text-uppercase {
   text-transform: uppercase;
@@ -1115,27 +977,6 @@ nav a:hover {
 
 .text-error {
   color: var(--error);
-}
-
-/* BACKGROUND UTILS */
-.bg-primary {
-  background-color: var(--primary);
-}
-
-.bg-secondary {
-  background-color: var(--secondary);
-}
-
-.bg-tertiary {
-  background-color: var(--tertiary);
-}
-
-.bg-light {
-  background-color: var(--light);
-}
-
-.bg-dark {
-  background-color: var(--dark);
 }
 
 /* FLEX CONTENT */

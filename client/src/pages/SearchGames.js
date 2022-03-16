@@ -61,7 +61,7 @@ const SearchGames = () => {
           </div>
         </>
       ) : null}
-      <div className="m-3">
+      <div className="col-sm-8 odds max-width justify-space-between">
         <div className="dropdown">
           <button className="dropdown-btn">Search Leagues</button>
           <div className="dropdown-content">
@@ -120,55 +120,51 @@ const SearchGames = () => {
             </nav>
           </div>
         </div>
+
         <span className="game-text ml-3">
           {searchedGames.length
             ? `Viewing ${searchedGames.length} results:`
             : "Choose a league to view games"}
         </span>
-        <div>
-          <div className=" flexbox">
-            <div className="max-width">
-              <div>
-                <div className="card-container">
-                  {searchedGames.map((game) => {
-                    return (
-                      <div className="center" key={game.gameId}>
-                        <h3 className="game-title">
-                          {game.title} <br />{" "}
-                          <span className="bookmaker">{game.bookmakers}</span>
-                        </h3>
-                        {/* <h3 className="small game-title">{game.bookmakers}</h3> */}
-                        <br />
-                        <p>
-                          <span className="small">Home Team: </span>
-                          {game.homeTeam}
-                        </p>
-                        <p>
-                          <span className="small">Odds:</span>
-                          {game.marketHomeOdds}
-                        </p>
-                        <p>
-                          <span className="small">Away Team: </span>
-                          {game.awayTeam}
-                        </p>
-                        <p>
-                          <span className="small">Odds: </span>
-                          {game.marketAwayOdds}
-                        </p>
-                        <p>
-                          <span className="small">Game Time: </span>
-                          {game.time}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
+
+        <div className="card-container flexbox">
+          {searchedGames.map((game) => {
+            return (
+              <div className="center" key={game.gameId}>
+                <h3 className="game-title">
+                  {game.title} <br />{" "}
+                  <span className="bookmaker">{game.bookmakers}</span>
+                </h3>
+                {/* <h3 className="small game-title">{game.bookmakers}</h3> */}
+                <br />
+                <p>
+                  <span className="small">Home Team: </span>
+                  {game.homeTeam}
+                </p>
+                <p>
+                  <span className="small">Odds: </span>
+                  {game.marketHomeOdds}
+                </p>
+                <p>
+                  <span className="small">Away Team: </span>
+                  {game.awayTeam}
+                </p>
+                <p>
+                  <span className="small">Odds: </span>
+                  {game.marketAwayOdds}
+                </p>
+                <p>
+                  <span className="small">Game Time: </span>
+                  {game.time}
+                </p>
               </div>
-            </div>
-            <div className="ml-5 spacing">
-              <YelpSearch />
-            </div>
-          </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="ml-4">
+        <div>
+          <YelpSearch />
         </div>
       </div>
     </>
