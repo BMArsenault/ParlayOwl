@@ -4,7 +4,7 @@ import {
   CardElement,
   Elements,
   useElements,
-  useStripe
+  useStripe,
 } from "@stripe/react-stripe-js";
 import "../index.css";
 
@@ -22,7 +22,7 @@ const Field = ({
   required,
   autoComplete,
   value,
-  onChange
+  onChange,
 }) => (
   <div className="FormRow">
     <label htmlFor={id} className="FormRowLabel">
@@ -88,7 +88,7 @@ const CheckoutForm = () => {
   const [billingDetails, setBillingDetails] = useState({
     email: "",
     phone: "",
-    name: ""
+    name: "",
   });
 
   const handleSubmit = async (event) => {
@@ -112,7 +112,7 @@ const CheckoutForm = () => {
     const payload = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
-      billing_details: billingDetails
+      billing_details: billingDetails,
     });
 
     setProcessing(false);
@@ -131,7 +131,7 @@ const CheckoutForm = () => {
     setBillingDetails({
       email: "",
       phone: "",
-      name: ""
+      name: "",
     });
   };
 
@@ -205,9 +205,9 @@ const CheckoutForm = () => {
 const ELEMENTS_OPTIONS = {
   fonts: [
     {
-      cssSrc: "https://fonts.googleapis.com/css?family=Roboto"
-    }
-  ]
+      cssSrc: "https://fonts.googleapis.com/css?family=Roboto",
+    },
+  ],
 };
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
