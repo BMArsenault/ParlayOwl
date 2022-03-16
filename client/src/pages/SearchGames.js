@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import Auth from "../utils/auth";
 import { searchOddsApi } from "../utils/API";
 import YelpSearch from "../components/YelpSearch";
-import { FaDollarSign } from "react-icons/fa";
 const SearchGames = () => {
   // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
@@ -52,15 +50,6 @@ const SearchGames = () => {
   return (
     <>
       {/* <h1>Search for Games!</h1> */}
-      {Auth.loggedIn() ? (
-        <>
-          <div className={"donation-container"}>
-            <a className={"donation-button"} href="/payment">
-              <FaDollarSign size="40px" />
-            </a>
-          </div>
-        </>
-      ) : null}
       <div className="m-3">
         <div className="dropdown">
           <button className="dropdown-btn">Search Leagues</button>
