@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { get } from '../utils/API';
-import {useBusinessSearch} from '../hooks/useBusiness'
 import styles from '../singleresult.module.css'
-import { Jumbotron, Container, Col, Form, Button, CardColumns } from 'react-bootstrap';
 
 const YelpSearch = () => {
     // create state for holding returned yelp api data
@@ -55,9 +53,9 @@ const YelpSearch = () => {
 
     return(
         <>
-        <Container>
+        <div>
             <div>
-                <Form className="field has-addons">
+                <form className="field has-addons">
                     <p className="control">
                         <button className="button is-static">Search</button>
                     </p>
@@ -73,16 +71,16 @@ const YelpSearch = () => {
                     <button className="button" onClick={submitForm}>
                         <span className="icon is small"><i className="fa-solid fa-magnifying-glass"></i></span>
                     </button>
-                </Form>
+                </form>
             </div>
-        </Container>
-        <Container>
+        </div>
+        <div>
             {searchedBusinesses.map((businesses) => {
                 return(
                 <div className= {styles.searchresult} key={businesses.yelpId}>
-                    <img className = {styles.searchresultimg} src ={businesses.yelpImg}/>
+                    <img alt="business" className = {styles.searchresultimg} src ={businesses.yelpImg}/>
                         <div className = {styles.businessdetails}>
-                            <a className = {styles.businessname} href={businesses.yelpUrl} target="_blank">{businesses.yelpName}</a>
+                            <a className = {styles.businessname} href={businesses.yelpUrl} target="_blank" rel="noreferrer">{businesses.yelpName}</a>
                             <p className = {styles.businessrating}>Rating: {businesses.yelpRating} </p>
                             <p className = {styles.businessprice}>{businesses.yelpPrice} <span className = "tag">{businesses.yelpCategory}</span></p>
                         </div>
@@ -93,7 +91,7 @@ const YelpSearch = () => {
                 </div>
                 );
             })}
-        </Container>
+        </div>
         </>
     );
 }; 
