@@ -25,6 +25,10 @@ Logged in Donations page with NavBar
 
 ![Donation](https://user-images.githubusercontent.com/89749979/158719821-67bebfff-41de-4b0d-9b13-8111bec9b283.png)
 
+Logged in with Donations button follows down screen
+
+![DonationButton](https://user-images.githubusercontent.com/89749979/158720885-add281a8-2a22-4e6c-bac8-6b3988693bde.png)
+
 ## Links and Resources
 
 * 🌎 [Deployed](https://calm-brook-70069.herokuapp.com/)
